@@ -4,6 +4,7 @@ export interface Project {
   about: string;
   tagline: string;
   videolink: string;
+  date: string;
   banner?: {
     formats?: {
       thumbnail?: {
