@@ -2,16 +2,46 @@ import { notFound } from 'next/navigation';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import Image from 'next/image';
+import { Project } from "@/types/project";
 
-// This function would typically fetch data from an API or database
-async function getProject(id: string) {
-  // Simulating an API call
-  const projects = [
-    { id: '1', title: 'Project 1', description: 'Full description of Project 1', imageUrl: '/project1.jpg' },
-    { id: '2', title: 'Project 2', description: 'Full description of Project 2', imageUrl: '/project2.jpg' },
-    // Add more projects as needed
-  ];
-  return projects.find(p => p.id === id);
+
+// This function would fetch data from your API
+async function getProject(id: string): Promise<Project | null> {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?filters[id]$eq=${id}&populate=*`);
+  if (!response.ok) return null;
+  const data = await response.json();
+
+  if (data.data.length === 0) return null;
+
+  const projectData = data.data[0];
+  const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
+
+  return {
+    id: projectData.id.toString(),
+    name: projectData.name,
+    about: JSON.parse(projectData.about),
+    tagline: projectData.tagline,
+    videolink: projectData.videolink,
+    banner: projectData.banner?.formats?.thumbnail ? {
+      formats: {
+        thumbnail: {
+          url: `${imgurl}${projectData.banner.formats.thumbnail.url}`
+        }
+      }
+    } : undefined,
+    gallery: projectData.gallery ? projectData.gallery.map((image: any) => ({
+      formats: {
+        thumbnail: image.formats?.thumbnail ? {
+          url: `${imgurl}${image.formats.thumbnail.url}`
+        } : undefined
+      }
+    })) : undefined,
+    members: projectData.members.map((member: any) => ({
+      firstname: member.firstname,
+      lastnames: member.lastnames,
+      position: member.position,
+    })),
+  };
 }
 
 export default async function ProjectPage({ params }: { params: { id: string } }) {
@@ -21,25 +51,23 @@ export default async function ProjectPage({ params }: { params: { id: string } }
     notFound();
   }
 
-  const members = [
-    { name: "Wall-E", image: "/walle.jpg" },
-    { name: "Wall-E", image: "/walle.jpg" },
-    { name: "Wall-E", image: "/walle.jpg" },
-    { name: "Wall-E", image: "/walle.jpg" },
-  ];
-
   return (
     <div>
       <Navbar />
       <div className="relative">
         <div className="h-96 bg-gray-700 relative">
-          <img
-            src={project.imageUrl}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          {project.banner?.formats?.thumbnail?.url ? (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${project.banner.formats.thumbnail.url}`}
+              alt={project.name}
+              layout="fill"
+              objectFit="cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-300" />
+          )}
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <h1 className="text-4xl font-bold text-white">{project.title}</h1>
+            <h1 className="text-4xl font-bold text-white">{project.name}</h1>
           </div>
         </div>
       </div>
@@ -47,34 +75,29 @@ export default async function ProjectPage({ params }: { params: { id: string } }
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/2">
             <h2 className="text-2xl font-bold mb-4">About</h2>
-            <p className="text-lg">{project.description}</p>
+            {Array.isArray(project.about) ? (
+              project.about.map((block, index) => {
+                if (block.type === 'heading') {
+                  const HeadingTag = `h${block.level}` as keyof JSX.IntrinsicElements;
+                  return <HeadingTag key={index} className="text-xl font-bold my-2">{block.children[0].text}</HeadingTag>;
+                } else if (block.type === 'paragraph') {
+                  return <p key={index} className="text-lg mb-4">{block.children[0].text}</p>;
+                }
+                return null;
+              })
+            ) : (
+              <p>{project.about}</p>
+            )}
           </div>
           <div className="md:w-1/2">
-            <h2 className="text-2xl font-bold mb-4">Details</h2>
-            <p className="text-lg">Additional project information can go here.</p>
-          </div>
-        </div>
-
-        <div className="mt-12">
-          <h2 className="text-3xl font-bold mb-4">Publication</h2>
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">IEU 2024</p>
-            <h3 className="text-xl font-semibold my-2">{project.title}</h3>
-            <p className="text-gray-700">Author 1, Author 2, Author 3</p>
-            <div className="mt-4 flex space-x-4">
-              <a href="#" className="flex items-center text-blue-600 hover:underline">
-                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z"></path>
-                  <path d="M3 8a2 2 0 012-2h2.93a.5.5 0 01.5.5v7a.5.5 0 01-.5.5H5a2 2 0 01-2-2V8z"></path>
-                </svg>
-                PDF
-              </a>
-              <a href="#" className="flex items-center text-blue-600 hover:underline">
-                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z"></path>
-                </svg>
-                Link
-              </a>
+            <h2 className="text-2xl font-bold mb-4">Video</h2>
+            <div className="aspect-w-16 aspect-h-9">
+              <iframe
+                src={project.videolink.replace('watch?v=', 'embed/')}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
             </div>
           </div>
         </div>
@@ -82,16 +105,17 @@ export default async function ProjectPage({ params }: { params: { id: string } }
         <div className="mt-12">
           <h2 className="text-3xl font-bold mb-4">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Replace these with actual project images */}
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div key={i} className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-                <Image
-                  src={`/placeholder-image-${i}.jpg`}
-                  alt={`Gallery image ${i}`}
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
+            {project.gallery?.map((image, index) => (
+              <div key={index} className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                {image.formats?.thumbnail?.url && (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${image.formats.thumbnail.url}`}
+                    alt={`Gallery image ${index + 1}`}
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -100,18 +124,11 @@ export default async function ProjectPage({ params }: { params: { id: string } }
         <div className="mt-12">
           <h2 className="text-3xl font-bold mb-8">AxLab Members</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {members.map((member) => (
-              <div key={member.name} className="flex flex-col items-center">
-                <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={128}
-                    height={128}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="text-center font-semibold">{member.name}</p>
+            {project.members.map((member, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-4 bg-gray-200"></div>
+                <p className="text-center font-semibold">{`${member.firstname} ${member.lastnames}`}</p>
+                <p className="text-center text-sm text-gray-600">{member.position}</p>
               </div>
             ))}
           </div>

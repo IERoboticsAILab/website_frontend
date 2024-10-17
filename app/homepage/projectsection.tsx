@@ -10,13 +10,27 @@ export default function ProjectsSection() {
   useEffect(() => {
     const fetchProjects = async () => {
       const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
+      const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
       const headers = {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
       };
 
       try {
         const res = await axios.get(url, { headers });
-        setProjects(res.data.data);
+        const projectsWithFullImageUrls = res.data.data.map((project: Project) => ({
+          ...project,
+          gallery: project.gallery?.map((image) => ({
+            ...image,
+            formats: image.formats ? {
+              ...image.formats,
+              thumbnail: image.formats.thumbnail ? {
+                ...image.formats.thumbnail,
+                url: `${imgurl}${image.formats.thumbnail.url}`
+              } : undefined
+            } : undefined
+          }))
+        }));
+        setProjects(projectsWithFullImageUrls);
       } catch (error) {
         console.error("Error fetching projects data:", error);
       }
@@ -36,7 +50,7 @@ export default function ProjectsSection() {
                 id={project.id}
                 title={project.name}
                 description={project.tagline}
-                imageUrl={project.banner?.formats?.thumbnail?.url || project.gallery?.[0]?.formats?.thumbnail?.url || ''}
+                imageUrl={project.gallery?.[0]?.formats?.thumbnail?.url || ''}
               />
             </div>
           ))}

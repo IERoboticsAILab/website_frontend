@@ -3,6 +3,7 @@ export interface Project {
   name: string;
   about: string;
   tagline: string;
+  videolink: string;
   banner?: {
     formats?: {
       thumbnail?: {
@@ -16,5 +17,10 @@ export interface Project {
         url: string;
       };
     };
+  }>;
+  members: Array<{
+    firstname: string;
+    lastnames: string;
+    position: string;
   }>;
 }

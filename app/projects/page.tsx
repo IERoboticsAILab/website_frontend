@@ -1,40 +1,52 @@
+'use client'
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import ProjectCard from '@/components/projectcard';
+import ProjectsGrid from './projectsgrid';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Project } from "@/types/project";
 
-// This function would typically fetch data from an API or database
-async function getProjects() {
-  // Simulating an API call
-  return [
-    { id: '1', title: 'Project 1', description: 'Description 1', imageUrl: '/walle.jpg' },
-    { id: '2', title: 'Project 2', description: 'Description 2', imageUrl: '/walle.jpg' },
-    { id: '3', title: 'Project 3', description: 'Description 3', imageUrl: '/walle.jpg' },
-    { id: '4', title: 'Project 4', description: 'Description 4', imageUrl: '/walle.jpg' },
-    { id: '5', title: 'Project 5', description: 'Description 5', imageUrl: '/walle.jpg' },
-    { id: '6', title: 'Project 6', description: 'Description 6', imageUrl: '/walle.jpg' },
-    { id: '7', title: 'Project 7', description: 'Description 7', imageUrl: '/walle.jpg' },
-    { id: '8', title: 'Project 8', description: 'Description 8', imageUrl: '/walle.jpg' },
-    { id: '9', title: 'Project 9', description: 'Description 9', imageUrl: '/walle.jpg' },
-    { id: '10', title: 'Project 10', description: 'Description 10', imageUrl: '/walle.jpg' },
-    // Add more projects as needed
-  ];
-}
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
 
-export default async function ProjectsPage() {
-  const projects = await getProjects();
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
+      const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
+      const headers = {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
+      };
+
+      try {
+        const res = await axios.get(url, { headers });
+        const projectsWithFullImageUrls = res.data.data.map((project: Project) => ({
+          ...project,
+          gallery: project.gallery?.map((image) => ({
+            ...image,
+            formats: image.formats ? {
+              ...image.formats,
+              thumbnail: image.formats.thumbnail ? {
+                ...image.formats.thumbnail,
+                url: `${imgurl}${image.formats.thumbnail.url}`
+              } : undefined
+            } : undefined
+          }))
+        }));
+        setProjects(projectsWithFullImageUrls);
+      } catch (error) {
+        console.error("Error fetching projects data:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 min-h-screen">
         <h1 className="text-3xl font-bold mb-8">Our Projects</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {projects.map((project) => (
-            <div key={project.id}>
-              <ProjectCard {...project} />
-            </div>
-          ))}
-        </div>
+        <ProjectsGrid projects={projects} />
       </div>
       <Footer />
     </div>
