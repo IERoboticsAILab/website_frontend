@@ -10,7 +10,7 @@ export default function HeroSection() {
       <div className="flex flex-col center justify-center overflow-hidden relative ">
         <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
         {/* 1. Adjust the container */}
-        <div className="w-full h-[40vh] overflow-hidden relative">
+        <div className="w-full h-[50vh] overflow-hidden relative">
           {/* 2. Create the animating container */}
           <div className="flex items-center h-full absolute left-0 animate-slide whitespace-nowrap">
             {/* 3. Map through images twice */}
@@ -36,7 +36,8 @@ export default function HeroSection() {
           height={350}
           className="z-20 invert"
         />
-        <h1 className="text-white text-4xl font-bold z-20">Cyber Physical Labs</h1>
+        <h1 className="text-white text-4xl font-bold z-20">Cyber Physical Lab</h1>
+        <p className="text-white text-2xl z-20"> The Best Robotics Lab in IE</p>
       </div>
     </>
   );
