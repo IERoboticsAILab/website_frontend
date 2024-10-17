@@ -6,18 +6,14 @@ import axios from "axios";
 
 export default function HeroSection() {
   const [landing, setLanding] = useState<any>(null);
-  const images = ["/giphy1.webp", "/giphy2.webp", "/giphy3.webp", "/giphy4.webp"];
 
   useEffect(() => {
     const fetchLanding = async () => {
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate=*`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing`;
       console.log(process.env.NEXT_PUBLIC_STRAPI_API_KEY);
       const headers = {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
       };
-
-      console.log('Request URL:', url);
-      console.log('Request headers:', headers);
 
       try {
         const res = await axios.get(url, { headers });
@@ -33,6 +29,8 @@ export default function HeroSection() {
   if (!landing) {
     return <div>Loading...</div>; // Or any loading indicator
   }
+
+  const images = ["/giphy1.webp", "/giphy2.webp", "/giphy3.webp", "/giphy4.webp"];
 
   return (
     <>
