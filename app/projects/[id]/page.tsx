@@ -5,10 +5,15 @@ import Image from 'next/image';
 
 // This function would typically fetch data from an API or database
 async function getProject(id: string) {
+
   // Simulating an API call
   const projects = [
     { id: '1', title: 'Project 1', description: 'Full description of Project 1', imageUrl: '/project1.jpg' },
     { id: '2', title: 'Project 2', description: 'Full description of Project 2', imageUrl: '/project2.jpg' },
+    { id: '3', title: 'Project 3', description: 'Full description of Project 3', imageUrl: '/project3.jpg' },
+    { id: '4', title: 'Project 4', description: 'Full description of Project 4', imageUrl: '/project4.jpg' },
+    { id: '5', title: 'Project 5', description: 'Full description of Project 5', imageUrl: '/project5.jpg' },
+    { id: '6', title: 'Project 6', description: 'Full description of Project 6', imageUrl: '/project6.jpg' },
     // Add more projects as needed
   ];
   return projects.find(p => p.id === id);
@@ -48,10 +53,11 @@ export default async function ProjectPage({ params }: { params: { id: string } }
           <div className="md:w-1/2">
             <h2 className="text-2xl font-bold mb-4">About</h2>
             <p className="text-lg">{project.description}</p>
+            <iframe width="500" height="200" src="https://www.youtube.com/embed/SoZiZE2Zcng" title="Hedgehog Boat" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
           </div>
           <div className="md:w-1/2">
             <h2 className="text-2xl font-bold mb-4">Details</h2>
-            <p className="text-lg">Additional project information can go here.</p>
+            <p className="text-lg">Additional project information can go here. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
           </div>
         </div>
 
