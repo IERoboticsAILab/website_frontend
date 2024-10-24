@@ -37,7 +37,12 @@ export default function Home() {
     <div className="">
       <Navbar />
       <HeroSection tagline={landing?.data?.tagline || ""} bannerUrls={bannerUrls}/>
-      <Intro />
+      <Intro
+        videolink={landing?.data?.videolink || ""}
+        videocaption={landing?.data?.videocaption || ""}
+        introtitle={landing?.data?.introtitle || ""}
+        introdescription={landing?.data?.introdescription || ""}
+      />
       <ProjectsSection />
       <CustomSection />
       <Footer />
