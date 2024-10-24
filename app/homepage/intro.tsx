@@ -7,7 +7,7 @@ interface IntroProps {
   introdescription: string;
 }
 
-const Intro: React.FC<IntroProps> = ({ videolink, videocaption, introtitle, introdescription }) => {
+function Intro({ videolink, videocaption, introtitle, introdescription }: IntroProps) {
   return (
     <div className="flex flex-row justify-center m-10">
       <div className="flex flex-col mx-5 max-w-[40%]">
