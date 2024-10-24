@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 
-export default function HeroSection({ tagline, bannerUrls }: { tagline: string, bannerUrls: string[] }) {
+interface HeroSectionProps {
+  tagline: string;
+  bannerUrls: string[];
+}
+
+function HeroSection({ tagline, bannerUrls }: HeroSectionProps) {
 
   const images = bannerUrls;
   console.log(images);
@@ -38,9 +43,11 @@ export default function HeroSection({ tagline, bannerUrls }: { tagline: string, 
           height={350}
           className="z-20 invert"
         />
-        <h1 className="text-white text-4xl font-bold z-20">Cyber Physical Lab</h1>
+        <h1 className="text-white text-4xl font-bold z-20">Cyber Physical Life</h1>
         <p className="text-white text-2xl z-20">{tagline}</p>
       </div>
     </>
   );
 }
+
+export default HeroSection;

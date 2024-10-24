@@ -4,6 +4,9 @@ export type Landing = {
     documentId: string;
     tagline: string;
     videolink: string;
+    videocaption: string;
+    introtitle: string;
+    introdescription: string;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
