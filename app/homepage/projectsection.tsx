@@ -2,10 +2,10 @@
 import ProjectCard from '@/components/projectcard';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Project } from '@/types/project';
+import { Projects } from '@/types/project';
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<Projects[]>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -17,9 +17,9 @@ export default function ProjectsSection() {
 
       try {
         const res = await axios.get(url, { headers });
-        const projectsWithFullImageUrls = res.data.data.map((project: Project) => ({
+        const projectsWithFullImageUrls = res.data.data.map((project: Projects) => ({
           ...project,
-          gallery: project.gallery?.map((image) => ({
+          gallery: project.gallery?.map((image: { formats?: { thumbnail?: { url: string } } }) => ({
             ...image,
             formats: image.formats ? {
               ...image.formats,
@@ -44,7 +44,7 @@ export default function ProjectsSection() {
       <h1 className="text-3xl font-bold mb-8">Our Projects</h1>
       <div className="overflow-x-auto pb-4">
         <div className="flex space-x-6" style={{ width: `${projects.length * 20}%` }}>
-          {projects.map((project: Project) => (
+          {projects.map((project: Projects) => (
             <div key={project.id} className="w-64 h-64 flex-shrink-0">
               <ProjectCard
                 id={project.id}
