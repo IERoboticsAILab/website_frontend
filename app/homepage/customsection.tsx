@@ -22,11 +22,14 @@ function CustomSection({ customarea }: CustomSectionProps) {
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center mb-16">
           <div className="w-full md:w-1/2 p-8">
-            <h2 className="text-4xl font-bold mb-6 text-blue-600">{customarea?.[0]?.text?.[0]?.children?.[0]?.text}</h2>
             <p className="text-xl mb-4 text-gray-700 leading-relaxed">
             {customarea?.[0]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
-                  <p key={`${i}-${j}`}>{child.text}</p>
+                  textItem.type === "paragraph" ? (
+                    <p key={`${i}-${j}`}>{child.text}</p>
+                  ) : textItem.type === "heading" ? (
+                    <h2 key={`${i}-${j}`} className="text-2xl font-semibold mb-4">{child.text}</h2>
+                  ) : null
                 ))
               ))}
             </p>
@@ -39,11 +42,14 @@ function CustomSection({ customarea }: CustomSectionProps) {
         </div>
         <div className="flex flex-col md:flex-row-reverse items-center">
           <div className="w-full md:w-1/2 p-8">
-            <h2 className="text-4xl font-bold mb-6 text-green-600">{customarea?.[2]?.text?.[0]?.children?.[0]?.text}</h2>
             <p className="text-xl mb-4 text-gray-700 leading-relaxed">
-              {customarea?.[2]?.text?.map((textItem, i) => (
+            {customarea?.[2]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
-                  <p key={`${i}-${j}`}>{child.text}</p>
+                  textItem.type === "paragraph" ? (
+                    <p key={`${i}-${j}`}>{child.text}</p>
+                  ) : textItem.type === "heading" ? (
+                    <h2 key={`${i}-${j}`} className="text-2xl font-semibold mb-4">{child.text}</h2>
+                  ) : null
                 ))
               ))}
             </p>
