@@ -60,9 +60,9 @@ export default function People() {
               </div>
             </div>
             {/* Placeholder for headshot - you'll need to add this field to your API if you want to display it */}
-            <div className="w-48 h-48 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-              <span className="text-gray-600">No Headshot</span>
-            </div>
+            {membersArray[0].profilepic?.url && (
+              <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${membersArray[0].profilepic.url}`} alt={membersArray[0].firstname} width={200} height={200} />
+            )}
           </div>
         </div>
       )}
