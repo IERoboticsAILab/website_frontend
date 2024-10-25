@@ -27,41 +27,48 @@ export default function People() {
     }
   };
 
-  const membersArray = members?.data;  // Now this will work correctly
+  const membersArray = members?.data;
+  // Find PI by name
+  const principalInvestigator = membersArray?.find(member =>
+    member.firstname.toLowerCase() === "eduardo"
+  );
+  // Filter out PI from other members
+  const labMembers = membersArray?.filter(member =>
+    member.firstname.toLowerCase() !== "eduardo"
+  );
 
   return (
     <div>
       <Navbar />
       {/* Principal Investigator Card */}
-      {membersArray && membersArray.length > 0 && (
+      {principalInvestigator && (
         <div className="max-w-3xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
           <div className="flex justify-between">
             <div>
               <h2 className="text-3xl font-bold mb-2">Principal investigator</h2>
-              <h1 className="text-4xl font-bold mb-2">{`${membersArray[0].firstname} ${membersArray[0].lastnames}`}</h1>
-              <p className="text-xl mb-4">{membersArray[0].position}</p>
-              <p className="mb-4">{membersArray[0].bio}</p>
+              <h1 className="text-4xl font-bold mb-2">{`${principalInvestigator.firstname} ${principalInvestigator.lastnames}`}</h1>
+              <p className="text-xl mb-4">{principalInvestigator.position}</p>
+              <p className="mb-4">{principalInvestigator.bio}</p>
               <div className="mt-4 flex space-x-4">
-                {membersArray[0].github && (
-                  <a href={membersArray[0].github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                {principalInvestigator.github && (
+                  <a href={principalInvestigator.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                     GitHub
                   </a>
                 )}
-                {membersArray[0].linkedin && (
-                  <a href={membersArray[0].linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                {principalInvestigator.linkedin && (
+                  <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                     LinkedIn
                   </a>
                 )}
-                {membersArray[0].email && (
-                  <a href={`mailto:${membersArray[0].email}`} className="text-blue-600 hover:underline">
+                {principalInvestigator.email && (
+                  <a href={`mailto:${principalInvestigator.email}`} className="text-blue-600 hover:underline">
                     Email
                   </a>
                 )}
               </div>
             </div>
-            {/* Placeholder for headshot - you'll need to add this field to your API if you want to display it */}
-            {membersArray[0].profilepic?.url && (
-              <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${membersArray[0].profilepic.url}`} alt={membersArray[0].firstname} width={200} height={200} className="rounded-full"/>
+            {principalInvestigator.profilepic?.url && (
+              <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${principalInvestigator.profilepic.url}`} alt={principalInvestigator.firstname} width={200} height={200} className="rounded-full"/>
             )}
           </div>
         </div>
@@ -71,7 +78,7 @@ export default function People() {
       <div className="max-w-6xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold mb-6">Lab members</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {membersArray?.slice(1).map((member) => (
+          {labMembers?.map((member) => (
             <div key={member.id} className="flex flex-col items-center">
               {member.profilepic?.url && (
                 <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${member.profilepic.url}`} alt={member.firstname} width={200} height={200} className="rounded-full"/>
