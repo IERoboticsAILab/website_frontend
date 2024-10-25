@@ -15,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchLanding = async () => {
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate=banner`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate=*`;
       const headers = {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
       };
@@ -33,6 +33,8 @@ export default function Home() {
 
   const bannerUrls = landing?.data.banner.map(banner => `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${banner.url}`) || [];
 
+  const customarea = landing?.data.customarea;
+
   return (
     <div className="">
       <Navbar />
@@ -44,7 +46,7 @@ export default function Home() {
         introdescription={landing?.data?.introdescription || ""}
       />
       <ProjectsSection />
-      <CustomSection />
+      <CustomSection customarea={customarea || []} />
       <Footer />
     </div>
   );
