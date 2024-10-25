@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 
 
 export default async function PublicationsPage() {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate=*`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members]=*&populate[projects][populate][0]=banner`;
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };
@@ -30,6 +30,7 @@ export default async function PublicationsPage() {
           {publications.data.map((pub) => (
             <div key={pub.id} className="flex flex-col md:flex-row gap-4 border-b pb-8">
               <div className="md:w-1/3">
+                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${pub.projects[0].banner?.url}`} alt={pub.name} width={300} height={200} className="w-full object-cover" />
               </div>
               <div className="md:w-2/3">
                 <p className="text-sm text-gray-600 mb-2">{`${pub.date}`}</p>
