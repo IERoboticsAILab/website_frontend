@@ -1,22 +1,12 @@
 import Image from "next/image";
-
+import { Landing } from "@/types/landing";
 
 interface CustomSectionProps {
-  customarea: Array<{
-    __component: "shared.json-rich-text" | "shared.media";
-    id: number;
-    text?: Array<{
-      type: "heading" | "paragraph";
-      children: Array<{
-        type: "text";
-        text: string;
-      }>;
-      level?: number;
-    }>;
-  }>;
+  customarea: Landing['data']['customarea'];
 }
 
 function CustomSection({ customarea }: CustomSectionProps) {
+  // console.log(customarea[1]);
   return (
     <div className="w-full bg-gray-100 py-16">
       <div className="container mx-auto">
@@ -36,7 +26,16 @@ function CustomSection({ customarea }: CustomSectionProps) {
           </div>
           <div className="w-full md:w-1/2 p-4">
             <div className="rounded-lg overflow-hidden shadow-xl">
-              <Image src="/labimage1.png" alt="Innovative Research" layout="responsive" width={600} height={400} objectFit="cover" />
+              <Image
+                src={customarea?.[1]?.file?.url
+                  ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${customarea[1].file.url}`
+                  : '/walle.jpg'}
+                alt="Innovative Research"
+                layout="responsive"
+                width={600}
+                height={400}
+                objectFit="cover"
+              />
             </div>
           </div>
         </div>
@@ -56,7 +55,16 @@ function CustomSection({ customarea }: CustomSectionProps) {
           </div>
           <div className="w-full md:w-1/2 p-4">
             <div className="rounded-lg overflow-hidden shadow-xl">
-              <Image src="/labimage2.png" alt="Collaborative Environment" layout="responsive" width={600} height={400} objectFit="cover" />
+            <Image
+                src={customarea?.[3]?.file?.url
+                  ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${customarea[3].file.url}`
+                  : '/walle.jpg'}
+                alt="Innovative Research"
+                layout="responsive"
+                width={600}
+                height={400}
+                objectFit="cover"
+              />
             </div>
           </div>
         </div>

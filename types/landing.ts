@@ -21,6 +21,32 @@ export type Landing = {
         }>;
         level?: number;
       }>;
+      file?: {
+        id: number;
+        documentId: string;
+        name: string;
+        alternativeText: string | null;
+        caption: string | null;
+        width: number;
+        height: number;
+        formats: {
+          thumbnail: ImageFormat;
+          small: ImageFormat;
+          medium: ImageFormat;
+          large: ImageFormat;
+        };
+        hash: string;
+        ext: string;
+        mime: string;
+        size: number;
+        url: string;
+        previewUrl: string | null;
+        provider: string;
+        provider_metadata: null | Record<string, unknown>;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
+      };
     }>;
     banner: Array<{
       id: number;
