@@ -1,6 +1,6 @@
 import { ImageFormat } from "./members";
 import { Member } from "./members";
-
+import { Publication } from "./publication";
 type RichTextNode = {
   type: string;
   children: Array<{
@@ -74,6 +74,7 @@ export interface Project {
     publishedAt: string;
   }>;
   members: Member[];
+  publications: Publication[];
 }
 
 export type Projects = {
