@@ -61,7 +61,7 @@ export default function People() {
             </div>
             {/* Placeholder for headshot - you'll need to add this field to your API if you want to display it */}
             {membersArray[0].profilepic?.url && (
-              <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${membersArray[0].profilepic.url}`} alt={membersArray[0].firstname} width={200} height={200} />
+              <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${membersArray[0].profilepic.url}`} alt={membersArray[0].firstname} width={200} height={200} className="rounded-full"/>
             )}
           </div>
         </div>
@@ -73,9 +73,9 @@ export default function People() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {membersArray?.slice(1).map((member) => (
             <div key={member.id} className="flex flex-col items-center">
-              <div className="w-32 h-32 bg-gray-300 rounded-full flex items-center justify-center mb-4">
-                <span className="text-gray-600">Headshot</span>
-              </div>
+              {member.profilepic?.url && (
+                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${member.profilepic.url}`} alt={member.firstname} width={200} height={200} className="rounded-full"/>
+              )}
               <h3 className="font-semibold text-lg">{`${member.firstname} ${member.lastnames}`}</h3>
               <p className="text-sm text-gray-600">{member.position}</p>
               <div className="mt-2 flex space-x-2">
