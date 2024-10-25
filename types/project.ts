@@ -1,27 +1,89 @@
-export interface Projects {
-  id: string;
+import { ImageFormat } from "./members";
+import { Member } from "./members";
+
+type RichTextNode = {
+  type: string;
+  children: Array<{
+    type: string;
+    text?: string;
+  }>;
+  level?: number;
+};
+
+export interface Project {
+  id: number;
+  documentId: string;
   name: string;
-  about: string;
+  about: RichTextNode[];
   tagline: string;
   videolink: string;
   date: string;
-  banner?: {
-    formats?: {
-      thumbnail?: {
-        url: string;
-      };
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  banner: {
+    id: number;
+    documentId: string;
+    name: string;
+    alternativeText: string | null;
+    caption: string | null;
+    width: number;
+    height: number;
+    formats: {
+      thumbnail: ImageFormat;
+      small: ImageFormat;
+      medium?: ImageFormat;
+      large?: ImageFormat;
     };
+    hash: string;
+    ext: string;
+    mime: string;
+    size: number;
+    url: string;
+    previewUrl: string | null;
+    provider: string;
+    provider_metadata: null | Record<string, unknown>;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
   };
   gallery?: Array<{
-    formats?: {
-      thumbnail?: {
-        url: string;
-      };
+    id: number;
+    documentId: string;
+    name: string;
+    alternativeText: string | null;
+    caption: string | null;
+    width: number;
+    height: number;
+    formats: {
+      thumbnail: ImageFormat;
+      small?: ImageFormat;
+      medium?: ImageFormat;
+      large?: ImageFormat;
     };
+    hash: string;
+    ext: string;
+    mime: string;
+    size: number;
+    url: string;
+    previewUrl: string | null;
+    provider: string;
+    provider_metadata: null | Record<string, unknown>;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
   }>;
-  members: Array<{
-    firstname: string;
-    lastnames: string;
-    position: string;
-  }>;
+  members: Member[];
 }
+
+export type Projects = {
+  data: Project[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+};

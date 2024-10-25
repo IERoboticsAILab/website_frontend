@@ -1,4 +1,4 @@
-type ImageFormat = {
+export type ImageFormat = {
   name: string;
   hash: string;
   ext: string;
@@ -11,7 +11,7 @@ type ImageFormat = {
   url: string;
 };
 
-type ProfilePicture = {
+export type ProfilePicture = {
   id: number;
   documentId: string;
   name: string;
@@ -37,7 +37,7 @@ type ProfilePicture = {
   publishedAt: string;
 };
 
-type Member = {
+export type Member = {
   id: number;
   documentId: string;
   firstname: string;
