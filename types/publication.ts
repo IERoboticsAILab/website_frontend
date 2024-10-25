@@ -1,4 +1,5 @@
 import { Member } from "./members";
+import { Project } from "./project";
 
 export interface Publication {
   id: number;
@@ -11,6 +12,7 @@ export interface Publication {
   publishedAt: string;
   date: string;
   members: Member[];
+  projects: Project[];
 }
 
 interface Pagination {
@@ -20,7 +22,7 @@ interface Pagination {
   total: number;
 }
 
-export interface Publications {
+export type Publications = {
   data: Publication[];
   meta: {
     pagination: Pagination;
