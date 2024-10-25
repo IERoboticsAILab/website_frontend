@@ -1,17 +1,37 @@
 import Image from "next/image";
 
-export default function CustomSection() {
+
+interface CustomSectionProps {
+  customarea: Array<{
+    __component: "shared.json-rich-text" | "shared.media";
+    id: number;
+    text?: Array<{
+      type: "heading" | "paragraph";
+      children: Array<{
+        type: "text";
+        text: string;
+      }>;
+      level?: number;
+    }>;
+  }>;
+}
+
+function CustomSection({ customarea }: CustomSectionProps) {
   return (
     <div className="w-full bg-gray-100 py-16">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center mb-16">
           <div className="w-full md:w-1/2 p-8">
-            <h2 className="text-4xl font-bold mb-6 text-blue-600">Innovative Research</h2>
             <p className="text-xl mb-4 text-gray-700 leading-relaxed">
-              At CyPhyLab, we're pushing the boundaries of cyber-physical systems. Our cutting-edge research combines advanced robotics, artificial intelligence, and sensor networks to create intelligent systems that interact seamlessly with the physical world.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed">
-              From smart cities to autonomous vehicles, our work is shaping the future of technology and improving lives across the globe.
+            {customarea?.[0]?.text?.map((textItem, i) => (
+                textItem.children?.map((child, j) => (
+                  textItem.type === "paragraph" ? (
+                    <p key={`${i}-${j}`}>{child.text}</p>
+                  ) : textItem.type === "heading" ? (
+                    <h2 key={`${i}-${j}`} className="text-2xl font-semibold mb-4">{child.text}</h2>
+                  ) : null
+                ))
+              ))}
             </p>
           </div>
           <div className="w-full md:w-1/2 p-4">
@@ -22,12 +42,16 @@ export default function CustomSection() {
         </div>
         <div className="flex flex-col md:flex-row-reverse items-center">
           <div className="w-full md:w-1/2 p-8">
-            <h2 className="text-4xl font-bold mb-6 text-green-600">Collaborative Environment</h2>
             <p className="text-xl mb-4 text-gray-700 leading-relaxed">
-              Our lab thrives on collaboration. We bring together brilliant minds from diverse backgrounds - computer scientists, electrical engineers, mechanical engineers, and more - to tackle complex challenges in cyber-physical systems.
-            </p>
-            <p className="text-xl text-gray-700 leading-relaxed">
-              Through interdisciplinary teamwork and state-of-the-art facilities, we're fostering innovation and making breakthroughs that were once thought impossible.
+            {customarea?.[2]?.text?.map((textItem, i) => (
+                textItem.children?.map((child, j) => (
+                  textItem.type === "paragraph" ? (
+                    <p key={`${i}-${j}`}>{child.text}</p>
+                  ) : textItem.type === "heading" ? (
+                    <h2 key={`${i}-${j}`} className="text-2xl font-semibold mb-4">{child.text}</h2>
+                  ) : null
+                ))
+              ))}
             </p>
           </div>
           <div className="w-full md:w-1/2 p-4">
@@ -40,3 +64,5 @@ export default function CustomSection() {
     </div>
   )
 }
+
+export default CustomSection;
