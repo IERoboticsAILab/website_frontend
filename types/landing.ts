@@ -10,6 +10,18 @@ export type Landing = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    customarea: Array<{
+      __component: "shared.json-rich-text" | "shared.media";
+      id: number;
+      text?: Array<{
+        type: "heading" | "paragraph";
+        children: Array<{
+          type: "text";
+          text: string;
+        }>;
+        level?: number;
+      }>;
+    }>;
     banner: Array<{
       id: number;
       documentId: string;
