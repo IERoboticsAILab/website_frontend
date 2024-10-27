@@ -5,6 +5,8 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import { Members } from "@/types/members";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 export default function People() {
   const [members, setMembers] = useState<Members>();
@@ -49,20 +51,23 @@ export default function People() {
               <h1 className="text-4xl font-bold mb-2">{`${principalInvestigator.firstname} ${principalInvestigator.lastnames}`}</h1>
               <p className="text-xl mb-4">{principalInvestigator.position}</p>
               <p className="mb-4">{principalInvestigator.bio}</p>
-              <div className="mt-4 flex space-x-4">
+              <div className="mt-4 flex space-x-4 items-center">
                 {principalInvestigator.github && (
-                  <a href={principalInvestigator.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                    GitHub
+                  <a href={principalInvestigator.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                    <FaGithub className="text-xl inline-block align-middle" />
+                    <span className="inline-block align-middle">GitHub</span>
                   </a>
                 )}
                 {principalInvestigator.linkedin && (
-                  <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                    LinkedIn
+                  <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                    <FaLinkedin className="text-xl inline-block align-middle" />
+                    <span className="inline-block align-middle">LinkedIn</span>
                   </a>
                 )}
                 {principalInvestigator.email && (
-                  <a href={`mailto:${principalInvestigator.email}`} className="text-blue-600 hover:underline">
-                    Email
+                  <a href={`mailto:${principalInvestigator.email}`} className="text-blue-600 hover:underline flex items-center gap-1">
+                    <MdEmail className="text-xl inline-block align-middle" />
+                    <span className="inline-block align-middle">Email</span>
                   </a>
                 )}
               </div>
@@ -81,19 +86,29 @@ export default function People() {
           {labMembers?.map((member) => (
             <div key={member.id} className="flex flex-col items-center">
               {member.profilepic?.url && (
-                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${member.profilepic.url}`} alt={member.firstname} width={200} height={200} className="rounded-full"/>
+                <div className="w-48 h-48 rounded-full overflow-hidden mb-4">
+                  <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${member.profilepic.url}`} alt={member.firstname} width={192} height={192} className="w-full h-full object-cover"/>
+                </div>
               )}
               <h3 className="font-semibold text-lg">{`${member.firstname} ${member.lastnames}`}</h3>
               <p className="text-sm text-gray-600">{member.position}</p>
-              <div className="mt-2 flex space-x-2">
+              <div className="mt-2 flex space-x-2 items-center">
                 {member.github && (
-                  <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                    GitHub
+                  <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                    <FaGithub className="text-xl inline-block align-middle" />
+                    <span className="inline-block align-middle">GitHub</span>
                   </a>
                 )}
                 {member.linkedin && (
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                    LinkedIn
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                    <FaLinkedin className="text-xl inline-block align-middle" />
+                    <span className="inline-block align-middle">LinkedIn</span>
+                  </a>
+                )}
+                {member.email && (
+                  <a href={`mailto:${member.email}`} className="text-blue-600 hover:underline flex items-center gap-1">
+                    <MdEmail className="text-xl inline-block align-middle" />
+                    <span className="inline-block align-middle">Email</span>
                   </a>
                 )}
               </div>
