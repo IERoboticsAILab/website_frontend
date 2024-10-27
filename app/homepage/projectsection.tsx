@@ -40,12 +40,14 @@ export default function ProjectsSection() {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-screen">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Our Projects</h1>
-      <div className="overflow-x-auto pb-4">
-        <div className="flex space-x-6" style={{ width: `${projects.length * 20}%` }}>
+      <div className="overflow-x-auto pb-4 md:overflow-x-visible">
+        <div className="flex flex-nowrap md:flex-wrap md:justify-center gap-6">
           {projects.map(project => (
-            <div key={project.id} className="w-64 h-64 flex-shrink-0">
+            <div key={project.id}
+                 className="w-64 h-64 flex-shrink-0 md:flex-shrink
+                           md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5">
               <ProjectCard
                 id={project.id.toString()}
                 title={project.name}
