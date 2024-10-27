@@ -1,10 +1,9 @@
 import { notFound } from 'next/navigation';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import Image from 'next/image';
-import { Project, Projects } from '@/types/project';
+import { Projects } from '@/types/project';
 
 
 interface ProjectPageProps {
@@ -39,7 +38,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <Navbar />
       <div className="">
         <div className="h-96 bg-gray-700 relative">
-          <img
+          <Image
             src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`}
             alt={project.name}
             className="w-full h-full object-cover"
