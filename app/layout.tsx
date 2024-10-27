@@ -16,6 +16,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "CyPhyLife",
   description: "CyPhyLife - IE University Research Group",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
