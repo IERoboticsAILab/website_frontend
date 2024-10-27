@@ -42,8 +42,9 @@ export default function People() {
   return (
     <div>
       <Navbar />
-      {/* Principal Investigator Card */}
-      {principalInvestigator && (
+      <div className="min-h-screen">
+        {/* Principal Investigator Card */}
+        {principalInvestigator && (
         <div className="max-w-3xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
           <div className="flex justify-between">
             <div>
@@ -114,6 +115,7 @@ export default function People() {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
       <Footer />

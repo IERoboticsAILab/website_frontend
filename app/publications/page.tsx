@@ -24,7 +24,7 @@ export default async function PublicationsPage() {
   return (
     <div>
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 min-h-screen">
         <h1 className="text-4xl font-bold mb-8">Publications</h1>
         <div className="space-y-8">
           {publications.data.map((pub) => (
