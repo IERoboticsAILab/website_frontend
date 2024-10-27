@@ -46,13 +46,13 @@ export default function People() {
         {/* Principal Investigator Card */}
         {principalInvestigator && (
         <div className="max-w-3xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
-          <div className="flex justify-between">
-            <div>
+          <div className="flex flex-col md:flex-row md:justify-between gap-6">
+            <div className="order-2 md:order-1 text-center md:text-left">
               <h2 className="text-3xl font-bold mb-2">Principal investigator</h2>
               <h1 className="text-4xl font-bold mb-2">{`${principalInvestigator.firstname} ${principalInvestigator.lastnames}`}</h1>
               <p className="text-xl mb-4">{principalInvestigator.position}</p>
               <p className="mb-4">{principalInvestigator.bio}</p>
-              <div className="mt-4 flex space-x-4 items-center">
+              <div className="mt-4 flex flex-wrap gap-4 items-center justify-center md:justify-start">
                 {principalInvestigator.github && (
                   <a href={principalInvestigator.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
                     <FaGithub className="text-xl inline-block align-middle" />
@@ -74,7 +74,15 @@ export default function People() {
               </div>
             </div>
             {principalInvestigator.profilepic?.url && (
-              <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${principalInvestigator.profilepic.url}`} alt={principalInvestigator.firstname} width={200} height={200} className="rounded-full"/>
+              <div className="order-1 md:order-2 flex justify-center">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${principalInvestigator.profilepic.url}`}
+                  alt={principalInvestigator.firstname}
+                  width={200}
+                  height={200}
+                  className="rounded-full w-48 h-48 md:w-[200px] md:h-[200px] object-cover"
+                />
+              </div>
             )}
           </div>
         </div>
