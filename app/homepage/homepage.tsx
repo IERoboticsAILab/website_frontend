@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 
 export default async function Home() {
+  console.log(`This is the process.env.STRAPI_API_URL: ${process.env.STRAPI_API_URL}`);
   const url = `${process.env.STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner]=*`;
   const headers = {
     Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
