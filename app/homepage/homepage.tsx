@@ -1,5 +1,3 @@
-"use client";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import HeroSection from "./herosection";
 import Intro from "./intro";
@@ -7,32 +5,22 @@ import ProjectsSection from "./projectsection";
 import CustomSection from "./customsection";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import {Landing} from "@/types/landing";
 
+export default async function Home() {
+  const url = `${process.env.STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner]=*`;
+  const headers = {
+    Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
+  };
 
-export default function Home() {
-  const [landing, setLanding] = useState<Landing | null>(null);
+  let landing = null;
+  try {
+    const res = await axios.get(url, { headers });
+    landing = res.data;
+  } catch (error) {
+    console.error("Error fetching landing data:", error);
+  }
 
-  useEffect(() => {
-    const fetchLanding = async () => {
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner]=*`;
-      const headers = {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
-      };
-
-      try {
-        const res = await axios.get(url, { headers });
-        setLanding(res.data);
-      } catch (error) {
-        console.error("Error fetching landing data:", error);
-      }
-    };
-
-    fetchLanding();
-  }, []);
-
-  const bannerUrls = landing?.data.banner.map(banner => `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${banner.url}`) || [];
-
+  const bannerUrls = landing?.data.banner.map((banner: { url: string }) => `${process.env.STRAPI_API_URL_IMG}${banner.url}`) || [];
   const customarea = landing?.data.customarea;
 
   return (
