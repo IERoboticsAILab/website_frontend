@@ -1,43 +1,37 @@
-'use client'
 import ProjectCard from '@/components/projectcard';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { Project } from '@/types/project';
 
-export default function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
+async function fetchProjects() {
+  const url = `${process.env.STRAPI_API_URL}/projects?populate=*`;
+  const imgurl = `${process.env.STRAPI_API_URL_IMG}`;
+  const headers = {
+    Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
+  };
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const url = `${process.env.STRAPI_API_URL}/projects?populate=*`;
-      const imgurl = `${process.env.STRAPI_API_URL_IMG}`;
-      const headers = {
-        Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
-      };
+  try {
+    const res = await axios.get<{ data: Project[] }>(url, { headers });
+    return res.data.data.map(project => ({
+      ...project,
+      gallery: project.gallery?.map(image => ({
+        ...image,
+        formats: {
+          ...image.formats,
+          thumbnail: {
+            ...image.formats.thumbnail,
+            url: `${imgurl}${image.formats.thumbnail.url}`
+          }
+        }
+      }))
+    }));
+  } catch (error) {
+    console.error("Error fetching projects data:", error);
+    return [];
+  }
+}
 
-      try {
-        const res = await axios.get<{ data: Project[] }>(url, { headers });
-        const projectsData = res.data.data.map(project => ({
-          ...project,
-          gallery: project.gallery?.map(image => ({
-            ...image,
-            formats: {
-              ...image.formats,
-              thumbnail: {
-                ...image.formats.thumbnail,
-                url: `${imgurl}${image.formats.thumbnail.url}`
-              }
-            }
-          }))
-        }));
-        setProjects(projectsData);
-      } catch (error) {
-        console.error("Error fetching projects data:", error);
-      }
-    };
-
-    fetchProjects();
-  }, []);
+export default async function ProjectsSection() {
+  const projects = await fetchProjects();
 
   return (
     <div className="container mx-auto px-4 py-8">

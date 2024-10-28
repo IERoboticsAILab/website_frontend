@@ -3,5 +3,8 @@ declare namespace NodeJS {
     NEXT_PUBLIC_STRAPI_API_URL: string;
     NEXT_PUBLIC_STRAPI_API_URL_IMG: string;
     NEXT_PUBLIC_STRAPI_API_KEY: string;
+    STRAPI_API_URL: string;
+    STRAPI_API_KEY: string;
+    STRAPI_API_URL_IMG: string;
   }
 }
