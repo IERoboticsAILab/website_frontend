@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
+/** @type {import('./envConfig.ts')} */
+
+const apiUrl = new URL(process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG);
 const nextConfig = {
   images: {
-    domains: ['localhost', process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG.replace(/^https?:\/\//, '')], // Remove protocol from URL
+    domains: ['localhost', apiUrl.hostname], // Add other domains if needed
   },
   // ... other configurations
 }
