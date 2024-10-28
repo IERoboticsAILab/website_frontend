@@ -7,4 +7,6 @@ declare namespace NodeJS {
     STRAPI_API_KEY: string;
     STRAPI_API_URL_IMG: string;
   }
+
+
 }
