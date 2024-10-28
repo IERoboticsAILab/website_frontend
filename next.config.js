@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+import './envConfig.ts'
 const apiUrl = new URL(process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG);
 const nextConfig = {
   images: {
