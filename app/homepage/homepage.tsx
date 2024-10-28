@@ -5,8 +5,6 @@ import ProjectsSection from "./projectsection";
 import CustomSection from "./customsection";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import "@/envConfig";
-
 
 
 export default async function Home() {

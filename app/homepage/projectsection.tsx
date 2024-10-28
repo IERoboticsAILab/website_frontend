@@ -9,10 +9,10 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
-      const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
+      const url = `${process.env.STRAPI_API_URL}/projects?populate=*`;
+      const imgurl = `${process.env.STRAPI_API_URL_IMG}`;
       const headers = {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
+        Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
       };
 
       try {
