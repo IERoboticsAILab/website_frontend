@@ -6,9 +6,17 @@ import CustomSection from "./customsection";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 
+export const dynamic = 'force-static'
 
 export default async function Home() {
   console.log(`This is the process.env.STRAPI_API_URL: ${process.env.STRAPI_API_URL}`);
+  if (!process.env.STRAPI_API_URL) {
+    throw new Error('STRAPI_API_URL environment variable is not defined');
+  }
+
+  if (!process.env.STRAPI_API_KEY) {
+    throw new Error('STRAPI_API_KEY environment variable is not defined');
+  }
   const url = `${process.env.STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner]=*`;
   const headers = {
     Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
