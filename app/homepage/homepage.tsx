@@ -6,8 +6,6 @@ import CustomSection from "./customsection";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 
-export const dynamic = 'force-static'
-
 export default async function Home() {
   console.log(process.env.VERCEL_ENV);
   console.log(`This is the process.env.STRAPI_API_URL: ${process.env.STRAPI_API_URL}`);
