@@ -12,7 +12,7 @@ function CustomSection({ customarea }: CustomSectionProps) {
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center mb-16">
           <div className="w-full md:w-1/2 p-8">
-            <p className="text-xl mb-4 text-gray-700 leading-relaxed">
+            <div className="text-xl mb-4 text-gray-700 leading-relaxed">
             {customarea?.[0]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
                   textItem.type === "paragraph" ? (
@@ -22,7 +22,7 @@ function CustomSection({ customarea }: CustomSectionProps) {
                   ) : null
                 ))
               ))}
-            </p>
+            </div>
           </div>
           <div className="w-full md:w-1/2 p-4">
             <div className="rounded-lg overflow-hidden shadow-xl">
@@ -41,7 +41,7 @@ function CustomSection({ customarea }: CustomSectionProps) {
         </div>
         <div className="flex flex-col md:flex-row-reverse items-center">
           <div className="w-full md:w-1/2 p-8">
-            <p className="text-xl mb-4 text-gray-700 leading-relaxed">
+            <div className="text-xl mb-4 text-gray-700 leading-relaxed">
             {customarea?.[2]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
                   textItem.type === "paragraph" ? (
@@ -51,7 +51,7 @@ function CustomSection({ customarea }: CustomSectionProps) {
                   ) : null
                 ))
               ))}
-            </p>
+            </div>
           </div>
           <div className="w-full md:w-1/2 p-4">
             <div className="rounded-lg overflow-hidden shadow-xl">
