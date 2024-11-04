@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 
 
 export default async function PublicationsPage() {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members]=*&populate[projects][populate][0]=banner`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members][populate]=*&populate[projects][populate][0]=banner`;
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };

@@ -12,7 +12,7 @@ interface ProjectPageProps {
 
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate[members][populate][0]=profilepic&populate[banner]=*&populate[gallery]=*&populate[publications][populate][0]=members`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members`;
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };

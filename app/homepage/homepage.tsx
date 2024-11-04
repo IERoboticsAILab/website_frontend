@@ -15,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchLanding = async () => {
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner]=*`;
+      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner][populate]=*`;
       const headers = {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
       };
