@@ -10,7 +10,7 @@
 } */
 
 body {
-  font-family: Inter, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Inter, Helvetica, sans-serif;
 }
 
 @layer utilities {

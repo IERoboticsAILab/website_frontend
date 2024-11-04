@@ -12,7 +12,7 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-md font-mono relative z-50">
         <div className="flex items-center">
           <Link href="/">
-            <Image src="/cpl.svg" alt="Logo" width={50} height={50} />
+            <Image src="/cpl.svg" alt="Logo" width={70} height={70} />
           </Link>
         </div>
         <div className="hidden md:flex space-x-6 items-center">
