@@ -6,13 +6,12 @@ interface CustomSectionProps {
 }
 
 function CustomSection({ customarea }: CustomSectionProps) {
-  // console.log(customarea[1]);
-  return (
-    <div className="w-full bg-gray-100 py-16">
+return (
+    <div className="w-full bg-[#241f21] py-16">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center mb-16">
           <div className="w-full md:w-1/2 p-8">
-            <p className="text-xl mb-4 text-gray-700 leading-relaxed">
+            <p className="text-xl mb-4 text-gray-700 leading-relaxed text-white">
             {customarea?.[0]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
                   textItem.type === "paragraph" ? (
@@ -41,7 +40,7 @@ function CustomSection({ customarea }: CustomSectionProps) {
         </div>
       </div>
     </div>
-  )
+)
 }
 
 export default CustomSection;
