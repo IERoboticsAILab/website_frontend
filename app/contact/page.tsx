@@ -4,6 +4,9 @@ import { JobPosts } from "@/types/jobpost";
 import axios from "axios";
 import { notFound } from "next/navigation";
 
+// Add this line to enable dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function Contact() {
 
   const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/jobposts?populate=*`;
