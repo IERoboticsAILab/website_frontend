@@ -128,16 +128,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <div className="mt-16">
           <h2 className="text-3xl font-bold mb-8 text-gray-900">Team Members</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
             {project.members.map((member) => (
               <div key={member.firstname + " " + member.lastnames} className="group">
-                <div className="aspect-square rounded-xl overflow-hidden mb-4 shadow-md transition-transform transform group-hover:scale-105">
+                <div className="aspect-square rounded-full overflow-hidden mb-4 shadow-md transition-transform transform group-hover:scale-105">
                   <Image
                     src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${member?.profilepic?.url}`}
                     alt={member.firstname + " " + member.lastnames}
                     width={300}
                     height={300}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </div>
                 <p className="text-center font-semibold text-gray-900">{member.firstname + " " + member.lastnames}</p>
