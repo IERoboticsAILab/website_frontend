@@ -14,7 +14,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
             id={project.id.toString()}
             title={project.name}
             description={project.tagline}
-            imageUrl={project.gallery?.[0]?.formats?.thumbnail?.url || ''}
+            imageUrl={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`}
           />
         </div>
       ))}
