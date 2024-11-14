@@ -105,7 +105,9 @@ export default function People() {
                 </div>
               )}
               <div className="flex flex-col items-center flex-grow">
-                <h3 className="font-semibold text-lg text-center">{`${member.firstname} ${member.lastnames}`}</h3>
+                <div className="h-16 flex items-center">
+                  <h3 className="font-semibold text-lg text-center">{`${member.firstname} ${member.lastnames}`}</h3>
+                </div>
                 <p className="text-sm text-gray-600 text-center">{member.position}</p>
               </div>
               <div className="mt-auto pt-2 flex space-x-2 items-center">
@@ -138,7 +140,9 @@ export default function People() {
                 </div>
               )}
               <div className="flex flex-col items-center flex-grow">
-                <h3 className="font-semibold text-lg text-center">{`${member.firstname} ${member.lastnames}`}</h3>
+                <div className="h-16 flex items-center">
+                  <h3 className="font-semibold text-lg text-center">{`${member.firstname} ${member.lastnames}`}</h3>
+                </div>
                 <p className="text-sm text-gray-600 text-center">{member.position}</p>
               </div>
               <div className="mt-auto pt-2 flex space-x-2 items-center">
