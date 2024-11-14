@@ -46,6 +46,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 flex items-end pb-12">
             <div className="container mx-auto px-6">
+              <p className="text-2xl text-gray-200 max-w-2xl">{project.date}</p>
               <h1 className="text-6xl font-bold text-white mb-4 max-w-3xl">{project.name}</h1>
               <p className="text-2xl text-gray-200 max-w-2xl">{project.tagline}</p>
             </div>
