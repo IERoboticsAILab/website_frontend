@@ -38,7 +38,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <div className="relative">
         <div className="h-[70vh] bg-gray-900 relative">
           <Image
-            src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`}
+            src={project.banner?.url
+              ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`
+              : '/walle.jpg'
+            }
             alt={project.name}
             className="w-full h-full object-cover opacity-80"
             fill
