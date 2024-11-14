@@ -31,7 +31,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) {
     notFound();
   }
-
+  // add arrows to the gallery
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             fill
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 flex items-end pb-12">
             <div className="container mx-auto px-6">
               <h1 className="text-6xl font-bold text-white mb-4 max-w-3xl">{project.name}</h1>
               <p className="text-2xl text-gray-200 max-w-2xl">{project.tagline}</p>
@@ -67,7 +67,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             </div>
             <div className="w-full lg:w-1/2">
-              <h2 className="text-3xl font-bold mb-6 text-gray-900">About the Project</h2>
+
               <div className="prose prose-lg max-w-none">
                 {project.about?.map((textItem, i) => (
                   textItem.children?.map((child, j) => (

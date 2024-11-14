@@ -24,7 +24,7 @@ return (
             </p>
           </div>
           <div className="w-full md:w-1/2 p-4">
-            <div className="rounded-lg overflow-hidden shadow-xl">
+            <div className="rounded-lg overflow-hidden">
               <Image
                 src={customarea?.[1]?.file?.url
                   ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${customarea[1].file.url}`

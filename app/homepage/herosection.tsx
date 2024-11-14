@@ -43,7 +43,7 @@ function HeroSection({ tagline, bannerUrls }: HeroSectionProps) {
           height={350}
           className="z-20 invert"
         />
-        <h1 className="text-white text-4xl font-bold z-20">Cyber Physical Life</h1>
+        <h1 className="text-white text-4xl font-bold z-20">Cyber-Physical Life</h1>
         <p className="text-white text-2xl z-20">{tagline}</p>
       </div>
     </>

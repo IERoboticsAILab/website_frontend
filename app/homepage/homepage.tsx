@@ -42,8 +42,7 @@ export default function Home() {
       <Intro
         videolink={landing?.data?.videolink || ""}
         videocaption={landing?.data?.videocaption || ""}
-        introtitle={landing?.data?.introtitle || ""}
-        introdescription={landing?.data?.introdescription || ""}
+        intro={landing?.data?.Intro || []}
       />
       <ProjectsSection />
       <CustomSection customarea={customarea || []} />

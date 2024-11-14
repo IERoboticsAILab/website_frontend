@@ -1,21 +1,63 @@
 import React from 'react';
 
+interface IntroChild {
+  text: string;
+  type: "text";
+  bold?: boolean;
+}
+
+interface IntroContent {
+  type: "heading" | "paragraph";
+  level?: number;
+  children: IntroChild[];
+}
+
 interface IntroProps {
   videolink: string;
   videocaption: string;
-  introtitle: string;
-  introdescription: string;
+  intro: IntroContent[];
 }
 
-function Intro({ videolink, videocaption, introtitle, introdescription }: IntroProps) {
+function Intro({ videolink, videocaption, intro }: IntroProps) {
+  const renderText = (child: IntroChild) => {
+    return child.bold ? (
+      <strong key={child.text}>{child.text}</strong>
+    ) : (
+      child.text
+    );
+  };
+
+  const renderContent = (content: IntroContent) => {
+    const children = content.children.map((child, index) => (
+      <React.Fragment key={index}>{renderText(child)}</React.Fragment>
+    ));
+
+    if (content.type === 'heading') {
+      return (
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+          {children}
+        </h1>
+      );
+    }
+
+    return (
+      <p className="text-md mt-2 text-gray-600">
+        {children}
+      </p>
+    );
+  };
+
   return (
-    <div className="flex flex-col md:flex-row justify-center m-4 md:m-10">
-      <div className="flex flex-col mx-2 md:mx-5 max-w-full md:max-w-[40%] mb-6 md:mb-0">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{introtitle}</h1>
-        <p className="text-md mt-2 text-gray-600">{introdescription}</p>
+    <div className="flex flex-col md:flex-row justify-between m-4 md:m-10">
+      <div className="flex flex-col mx-2 md:mx-5 w-full md:w-[45%] mb-6 md:mb-0">
+        {intro.map((content, index) => (
+          <React.Fragment key={index}>
+            {renderContent(content)}
+          </React.Fragment>
+        ))}
       </div>
-      <div className="w-full md:w-auto">
-        <div className="relative w-full aspect-video md:w-[500px] border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div className="w-full md:w-[45%]">
+        <div className="relative w-full aspect-video border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
           <iframe
             className="w-full h-full"
             src={videolink}

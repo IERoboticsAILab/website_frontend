@@ -32,8 +32,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, description, image
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute inset-0 p-4 flex flex-col justify-end">
-          <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
-          <p className="text-gray-200 text-xs line-clamp-2">{description}</p>
+          <h3 className="text-xl font-bold text-white mb-1" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{title}</h3>
+          <p className="text-gray-200 text-xs line-clamp-2 text-shadow">{description}</p>
         </div>
       </div>
     </Link>
