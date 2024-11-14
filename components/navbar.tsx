@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="relative">
       <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-md relative z-50">
-        <div className="flex items-center">
+        <div className="flex items-center mx-10">
           <Link href="/">
             <Image src="/cpl.svg" alt="Logo" width={70} height={70} />
           </Link>
