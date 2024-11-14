@@ -4,6 +4,7 @@ import { Project } from "./project";
 export interface Publication {
   id: number;
   documentId: string;
+  abstract: string;
   name: string;
   pdflink: string;
   paperlink: string;
@@ -28,4 +29,3 @@ export type Publications = {
     pagination: Pagination;
   };
 }
-
