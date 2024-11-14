@@ -7,12 +7,12 @@ interface ProjectCardProps {
   id: string;
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
   layout?: 'overlay' | 'stacked';
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, description, imageUrl, layout = 'overlay' }) => {
-  const [imgSrc, setImgSrc] = useState(imageUrl);
+  const [imgSrc, setImgSrc] = useState(imageUrl || '/walle.jpg');
 
   const handleImageError = () => {
     setImgSrc('/walle.jpg');

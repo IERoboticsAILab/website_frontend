@@ -42,17 +42,18 @@ export default function ProjectsSection() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Our Projects</h1>
-      <div className="overflow-x-auto pb-4 md:overflow-x-visible">
-        <div className="flex flex-nowrap md:flex-wrap md:justify-center gap-6">
+      <div className="overflow-x-auto pb-4">
+        <div className="flex flex-nowrap gap-6">
           {projects.map(project => (
             <div key={project.id}
-                 className="w-80 h-80 flex-shrink-0 md:flex-shrink
-                           md:w-[45%] lg:w-[30%] xl:w-[30%] 2xl:w-[30%]">
+                 className="w-80 h-80 flex-shrink-0">
               <ProjectCard
                 id={project.id.toString()}
                 title={project.name}
                 description={project.tagline}
-                imageUrl={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`}
+                imageUrl={project.banner ?
+                  `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}` :
+                  '/walle.jpg'}
               />
             </div>
           ))}
