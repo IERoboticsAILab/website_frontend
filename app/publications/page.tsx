@@ -6,6 +6,7 @@ import axios from "axios";
 import { Publications } from "@/types/publication";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
 
 export default async function PublicationsPage() {
   const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members][populate]=*&populate[projects][populate][0]=banner`;
@@ -42,7 +43,7 @@ export default async function PublicationsPage() {
                 />
               </div>
               <div className="md:w-2/3">
-                <p className="text-sm text-gray-600 mb-2">{`${pub.date}`}</p>
+                <p className="text-sm text-gray-600 mb-2">{`${pub.date?.split('-').slice(0,2).reverse().join('-')}`}</p>
                 <Link href={`/projects/${pub.projects[0].id}`}>
                   <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 hover:underline">{pub.name}</h2>
                 </Link>

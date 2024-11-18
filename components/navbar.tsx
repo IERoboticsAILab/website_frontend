@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="relative">
       <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-md relative z-50">
-        <div className="flex items-center mx-10">
+        <div className="flex items-center mx-4">
           <Link href="/">
             <Image src="/cpl.svg" alt="Logo" width={70} height={70} />
           </Link>
@@ -21,7 +21,7 @@ const Navbar = () => {
           <Link href="/projects" className="text-lg text-gray-700 hover:text-blue-600 transition-colors duration-200">Projects</Link>
           <Link href="/publications" className="text-lg text-gray-700 hover:text-blue-600 transition-colors duration-200">Publications</Link>
           <Link href="/contact" className="text-lg text-gray-700 hover:text-blue-600 transition-colors duration-200">Contact</Link>
-          <a href="https://github.com/IE-Robotics-Lab" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 transition-colors duration-200">
+          <a href="https://github.com/IERoboticsAILab" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 transition-colors duration-200">
             <FaGithub className="w-6 h-6" />
           </a>
           <a href="https://www.youtube.com/@IERoboticsLab" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-red-600 transition-colors duration-200">

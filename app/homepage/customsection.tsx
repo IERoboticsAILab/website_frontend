@@ -8,7 +8,7 @@ interface CustomSectionProps {
 function CustomSection({ customarea }: CustomSectionProps) {
 return (
     <div className="w-full bg-[#241f21] py-16">
-      <div className="container mx-10">
+      <div className="container mx-4">
         <div className="flex flex-col md:flex-row items-center mb-16">
           <div className="w-full md:w-1/2 p-8">
             <p className="text-xl mb-4 text-gray-700 leading-relaxed text-white">
