@@ -98,15 +98,15 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between m-8">
-      <div className="flex flex-col mx-2 w-full md:w-[45%] mb-6 md:mb-0">
+    <div className="flex flex-col md:flex-row justify-between items-center m-8">
+      <div className="flex flex-col mx-2 w-full md:w-[45%] mb-6 md:mb-0 self-start">
         {intro.map((content, index) => (
           <React.Fragment key={index}>
             {renderContent(content)}
           </React.Fragment>
         ))}
       </div>
-      <div className="w-full md:w-[45%] flex justify-center flex-col items-center my-auto">
+      <div className="w-full md:w-[45%] flex justify-center flex-col items-center sticky top-1/2 md:translate-y-[-10%]">
         <div className="relative w-full aspect-video border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
           <iframe
             className="w-full h-full"
