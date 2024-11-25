@@ -8,6 +8,7 @@ interface IntroChild {
   underline?: boolean;
   strikethrough?: boolean;
   url?: string;
+  children?: IntroChild[];
 }
 
 interface IntroContent {
@@ -54,9 +55,9 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
 
       return (
         <ListComponent className={`${listStyle} ml-6 mt-2 text-gray-600`}>
-          {content.children.map((item: any, index) => (
+          {content.children.map((item: IntroChild | { type: "list-item", children: IntroChild[] }, index) => (
             <li key={index}>
-              {item.children.map((child: IntroChild, childIndex: number) => (
+              {item.children && item.children.map((child: IntroChild, childIndex: number) => (
                 <React.Fragment key={childIndex}>
                   {renderText(child)}
                 </React.Fragment>
@@ -67,9 +68,16 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
       );
     }
 
-    const children = content.children.map((child: any, index) => (
-      <React.Fragment key={index}>{renderText(child)}</React.Fragment>
-    ));
+    const children = content.children.map((child: IntroChild | { type: "list-item", children: IntroChild[] }, index) => {
+      if ('type' in child && child.type === 'list-item') {
+        return (
+          <React.Fragment key={index}>
+            {child.children.map((subChild) => renderText(subChild))}
+          </React.Fragment>
+        );
+      }
+      return <React.Fragment key={index}>{renderText(child as IntroChild)}</React.Fragment>;
+    });
 
     if (content.type === 'heading') {
       // Handle different heading levels
