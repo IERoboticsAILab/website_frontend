@@ -44,8 +44,8 @@ export default function ProjectsPage() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto px-4 py-8 min-h-screen">
-        <h1 className="text-3xl font-bold mb-8">Our Projects</h1>
+      <div className="px-6 mx-4 py-8 min-h-screen">
+        <h1 className="text-3xl font-bold mb-8">Projects</h1>
         <ProjectsGrid projects={projects} />
       </div>
       <Footer />

@@ -7,9 +7,10 @@ interface IntroChild {
 }
 
 interface IntroContent {
-  type: "heading" | "paragraph";
+  type: "heading" | "paragraph" | "list";
   level?: number;
-  children: IntroChild[];
+  format?: "unordered" | "ordered";
+  children: (IntroChild | { type: "list-item", children: IntroChild[] })[];
 }
 
 interface IntroProps {
@@ -28,7 +29,24 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
   };
 
   const renderContent = (content: IntroContent) => {
-    const children = content.children.map((child, index) => (
+    if (content.type === 'list') {
+      const ListComponent = content.format === 'ordered' ? 'ol' : 'ul';
+      return (
+        <ListComponent className="list-disc ml-6 mt-2 text-gray-600">
+          {content.children.map((item: any, index) => (
+            <li key={index}>
+              {item.children.map((child: IntroChild, childIndex: number) => (
+                <React.Fragment key={childIndex}>
+                  {renderText(child)}
+                </React.Fragment>
+              ))}
+            </li>
+          ))}
+        </ListComponent>
+      );
+    }
+
+    const children = content.children.map((child: any, index) => (
       <React.Fragment key={index}>{renderText(child)}</React.Fragment>
     ));
 

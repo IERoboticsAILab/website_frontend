@@ -41,7 +41,7 @@ export default function ProjectsSection() {
 
   return (
     <div className="mx-10 py-8">
-      <h1 className="text-3xl font-bold mb-8">Our Projects</h1>
+      <h1 className="text-3xl font-bold mb-8">Projects</h1>
       <div className="overflow-x-auto pb-4 ">
         <div className="flex flex-nowrap gap-6">
           {projects.map(project => (

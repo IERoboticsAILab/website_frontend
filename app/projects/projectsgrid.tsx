@@ -7,7 +7,7 @@ interface ProjectsGridProps {
 
 const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-items-center px-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-items-center">
       {projects.map((project: Project) => (
         <div key={project.id} className="w-full max-w-[400px] h-full">
           <ProjectCard
