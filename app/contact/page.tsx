@@ -7,7 +7,6 @@ import axios from "axios";
 import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 import Cal from "@calcom/embed-react";
-import { useEffect } from "react";
 
 // Add this line to enable dynamic rendering
 export const dynamic = 'force-dynamic';
