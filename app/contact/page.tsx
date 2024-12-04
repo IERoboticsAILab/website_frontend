@@ -75,9 +75,7 @@ export default async function Contact() {
         </div>
 
         {/* Add Calendar Section */}
-        <section className="mt-12 bg-white p-6">
-          <Cal calLink="ieroboticslab" config={{ theme: "light" }} style={{ transform: "scale(1.2)", marginTop: "2rem" }}></Cal>
-        </section>
+
 
         <section className="mt-12">
           <h2 className="text-3xl font-bold mb-6">Open positions and more</h2>
@@ -130,6 +128,9 @@ export default async function Contact() {
               </div>
             ))}
           </div>
+        </section>
+        <section className="mt-12 bg-white p-6 mb-12">
+          <Cal calLink="team/ie-robotics-lab-tour-guides/lab-tour" config={{ theme: "light" }} style={{ transform: "scale(1.2)", marginTop: "2rem" }}></Cal>
         </section>
       </main>
       <Footer />
