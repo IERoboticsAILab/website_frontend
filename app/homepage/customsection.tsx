@@ -7,7 +7,7 @@ interface CustomSectionProps {
 
 function CustomSection({ customarea }: CustomSectionProps) {
 return (
-    <div className="w-full bg-[#241f21] py-16">
+    <div className="w-full bg-[#241f21] py-16 flex justify-center items-center">
       <div className="container mx-4">
         <div className="flex flex-col md:flex-row items-center mb-16">
           <div className="w-full md:w-1/2 p-8">
