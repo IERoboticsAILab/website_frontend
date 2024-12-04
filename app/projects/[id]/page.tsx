@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="grid gap-6">
               {project.publications?.map((publication) => (
                 <div key={publication.id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <p className="text-sm text-blue-600 mb-2">{publication.date}</p>
+                  <p className="text-sm text-blue-600 mb-2">{publication.date?.split('-').slice(0,2).reverse().join('-')}</p>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{publication.name}</h3>
                   <p className="text-gray-600 mb-4">{publication.authors ? publication.authors : publication.members.map(member => member.firstname + " " + member.lastnames).join(', ')}</p>
                   <div className="flex space-x-4">
