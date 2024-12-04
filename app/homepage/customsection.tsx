@@ -6,13 +6,14 @@ interface CustomSectionProps {
 }
 
 function CustomSection({ customarea }: CustomSectionProps) {
-return (
-    <div className="w-full bg-[#241f21] py-16 flex justify-center items-center">
-      <div className="container mx-4">
-        <div className="flex flex-col md:flex-row items-center mb-16">
+  return (
+    <div className="w-full bg-[#241f21]">
+      <div className="mx-10 py-8">
+        <h1 className="text-3xl font-bold mb-8 text-white">Mission</h1>
+        <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2 p-8">
             <p className="text-xl mb-4 text-gray-700 leading-relaxed text-white">
-            {customarea?.[0]?.text?.map((textItem, i) => (
+              {customarea?.[0]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
                   textItem.type === "paragraph" ? (
                     <p key={`${i}-${j}`}>{child.text}</p>
@@ -40,7 +41,7 @@ return (
         </div>
       </div>
     </div>
-)
+  );
 }
 
 export default CustomSection;
