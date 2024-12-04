@@ -1,8 +1,12 @@
+"use client";
+
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { JobPosts } from "@/types/jobpost";
 import axios from "axios";
 import { notFound } from "next/navigation";
+import ReactMarkdown from 'react-markdown';
+import Cal from "@calcom/embed-react";
 
 // Add this line to enable dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -70,6 +74,11 @@ export default async function Contact() {
           </div>
         </div>
 
+        {/* Add Calendar Section */}
+        <section className="mt-12 bg-white p-6">
+          <Cal calLink="ieroboticslab" config={{ theme: "light" }} style={{ transform: "scale(1.2)", marginTop: "2rem" }}></Cal>
+        </section>
+
         <section className="mt-12">
           <h2 className="text-3xl font-bold mb-6">Open positions and more</h2>
           <p className="text-lg mb-8">
@@ -82,13 +91,17 @@ export default async function Contact() {
                 <h3 className="text-2xl font-semibold mb-3 text-gray-800">{job.position}</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Recommendation</h4>
-                    <p className="mt-1 text-gray-700">{job.recommendation}</p>
+                    <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Description</h4>
+                    <div className="mt-1 text-gray-700 prose prose-sm">
+                      <ReactMarkdown>{job.description}</ReactMarkdown>
+                    </div>
                   </div>
 
                   <div>
                     <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Requirements</h4>
-                    <p className="mt-1 text-gray-700">{job.requirements}</p>
+                    <div className="mt-1 text-gray-700 prose prose-sm">
+                      <ReactMarkdown>{job.requirements}</ReactMarkdown>
+                    </div>
                   </div>
 
                   <div className="pt-4 border-t border-gray-200">

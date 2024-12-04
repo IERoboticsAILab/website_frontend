@@ -6,6 +6,7 @@ import axios from "axios";
 import { Publications } from "@/types/publication";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
 
 export default async function PublicationsPage() {
   const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members][populate]=*&populate[projects][populate][0]=banner`;
@@ -30,15 +31,24 @@ export default async function PublicationsPage() {
           {publications.data.map((pub) => (
             <div key={pub.id} className="flex flex-col md:flex-row gap-4 border-b pb-8">
               <div className="md:w-1/3">
-                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${pub.projects[0].banner?.url}`} alt={pub.name} width={300} height={200} className="w-full object-cover" />
+                <Image
+                  src={pub.projects[0].banner?.url
+                    ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${pub.projects[0].banner.url}`
+                    : '/wall-e.jpg'
+                  }
+                  alt={pub.name}
+                  width={300}
+                  height={200}
+                  className="w-full object-cover"
+                />
               </div>
               <div className="md:w-2/3">
-                <p className="text-sm text-gray-600 mb-2">{`${pub.date}`}</p>
+                <p className="text-sm text-gray-600 mb-2">{`${pub.date?.split('-').slice(0,2).reverse().join('-')}`}</p>
                 <Link href={`/projects/${pub.projects[0].id}`}>
                   <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 hover:underline">{pub.name}</h2>
                 </Link>
                 <p className="text-sm text-gray-700 mb-4">{pub.authors}</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mb-4">
                   <a href={pub.pdflink} className="flex items-center gap-1 text-blue-600 hover:underline">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
@@ -52,6 +62,8 @@ export default async function PublicationsPage() {
                     Project
                   </a>
                 </div>
+                <p><strong>Abstract:</strong></p>
+                <p>{pub.abstract}</p>
               </div>
             </div>
           ))}

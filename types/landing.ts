@@ -5,11 +5,18 @@ export type Landing = {
     tagline: string;
     videolink: string;
     videocaption: string;
-    introtitle: string;
-    introdescription: string;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    Intro: Array<{
+      type: "heading" | "paragraph";
+      level?: number;
+      children: Array<{
+        text: string;
+        type: "text";
+        bold?: boolean;
+      }>;
+    }>;
     customarea: Array<{
       __component: "shared.json-rich-text" | "shared.media";
       id: number;

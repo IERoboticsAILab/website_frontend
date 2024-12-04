@@ -51,6 +51,7 @@ export type Member = {
   updatedAt: string;
   publishedAt: string;
   profilepic: ProfilePicture | null;
+  alum: boolean;
 };
 
 export type Members = {

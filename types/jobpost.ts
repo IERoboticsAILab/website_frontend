@@ -2,7 +2,7 @@ export type JobPost = {
   id: number;
   documentId: string;
   position: string;
-  recommendation: string;
+  description: string;
   requirements: string;
   contactemail: string;
   createdAt: string;
