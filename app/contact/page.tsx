@@ -129,7 +129,9 @@ export default async function Contact() {
             ))}
           </div>
         </section>
-        <section className="mt-12 bg-white p-6 mb-12">
+        <section className="mt-12 bg-white mb-12">
+
+          <h2 className="text-3xl font-bold mb-20">Lab Tours</h2>
           <Cal calLink="team/ie-robotics-lab-tour-guides/lab-tour" config={{ theme: "light" }} style={{ transform: "scale(1.2)", marginTop: "2rem" }}></Cal>
         </section>
       </main>
