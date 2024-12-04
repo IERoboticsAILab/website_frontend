@@ -24,7 +24,7 @@ const Navbar = () => {
           <a href="https://github.com/IERoboticsAILab" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 transition-colors duration-200">
             <FaGithub className="w-6 h-6" />
           </a>
-          <a href="https://www.youtube.com/@IERoboticsLab" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-red-600 transition-colors duration-200">
+          <a href="https://www.youtube.com/channel/UCp0CmorXY4D5l0jWREqBfJQ" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-red-600 transition-colors duration-200">
             <FaYoutube className="w-6 h-6" />
           </a>
         </div>
