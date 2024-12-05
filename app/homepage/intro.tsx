@@ -24,6 +24,8 @@ interface IntroProps {
   intro: IntroContent[];
 }
 
+export const dynamic = 'force-dynamic';
+
 function Intro({ videolink, videocaption, intro }: IntroProps) {
   const renderText = (child: IntroChild) => {
     let content: React.ReactNode = child.text;

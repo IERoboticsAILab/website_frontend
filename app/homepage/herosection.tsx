@@ -6,6 +6,7 @@ interface HeroSectionProps {
   tagline: string;
   bannerUrls: string[];
 }
+export const dynamic = 'force-dynamic';
 
 function HeroSection({ tagline, bannerUrls }: HeroSectionProps) {
 

@@ -5,6 +5,8 @@ interface CustomSectionProps {
   customarea: Landing['data']['customarea'];
 }
 
+export const dynamic = 'force-dynamic';
+
 function CustomSection({ customarea }: CustomSectionProps) {
   return (
     <div className="w-full bg-[#241f21]">
@@ -12,20 +14,26 @@ function CustomSection({ customarea }: CustomSectionProps) {
         <h1 className="text-3xl font-bold mb-8 text-white">Mission</h1>
         <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2">
-            <p className="text-xl mb-4 text-gray-700 leading-relaxed text-white">
+            <div className="text-xl mb-4 text-white leading-relaxed">
               {customarea?.[0]?.text?.map((textItem, i) => (
-                textItem.children?.map((child, j) => (
-                  textItem.type === "paragraph" ? (
-                    <p key={`${i}-${j}`}>{child.text}</p>
-                  ) : textItem.type === "heading" ? (
-                    <h2 key={`${i}-${j}`} className="text-2xl font-semibold mb-4">{child.text}</h2>
-                  ) : null
-                ))
+                <div key={i}>
+                  {textItem.children?.map((child, j) => (
+                    <div key={`${i}-${j}`}>
+                      {textItem.type === "paragraph" ? (
+                        <p>{child.text}</p>
+                      ) : textItem.type === "heading" ? (
+                        <h2 className="text-2xl font-semibold mb-4">{child.text}</h2>
+                      ) : (
+                        <span>{child.text}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               ))}
-            </p>
+            </div>
           </div>
-          <div className="w-full md:w-1/2 p-4">
-            <div className="rounded-lg overflow-hidden">
+          <div className="w-full md:w-1/2 p-4 flex justify-center items-center">
+            <div className="rounded-lg overflow-hidden w-3/4">
               <Image
                 src={customarea?.[1]?.file?.url
                   ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${customarea[1].file.url}`
@@ -33,8 +41,9 @@ function CustomSection({ customarea }: CustomSectionProps) {
                 alt="Innovative Research"
                 layout="responsive"
                 width={300}
-                height={500}
+                height={300}
                 objectFit="cover"
+                className="h-auto"
               />
             </div>
           </div>
