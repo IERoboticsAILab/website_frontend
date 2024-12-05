@@ -11,7 +11,7 @@ function CustomSection({ customarea }: CustomSectionProps) {
       <div className="mx-10 py-8">
         <h1 className="text-3xl font-bold mb-8 text-white">Mission</h1>
         <div className="flex flex-col md:flex-row items-center">
-          <div className="w-full md:w-1/2 p-8">
+          <div className="w-full md:w-1/2">
             <p className="text-xl mb-4 text-gray-700 leading-relaxed text-white">
               {customarea?.[0]?.text?.map((textItem, i) => (
                 textItem.children?.map((child, j) => (
