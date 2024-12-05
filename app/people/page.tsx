@@ -1,6 +1,5 @@
 'use client'
 import axios from "axios";
-import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
@@ -8,13 +7,10 @@ import { Members } from "@/types/members";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-export default function People() {
-  const [members, setMembers] = useState<Members>();
 
-  useEffect(() => {
-    fetchMembers();
-  }, []);
+export const dynamic = 'force-dynamic';
 
+export default async function People() {
   const fetchMembers = async () => {
     const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/members?populate=*`;
     const headers = {
@@ -23,12 +19,14 @@ export default function People() {
 
     try {
       const res = await axios.get(url, { headers });
-      setMembers(res.data);
+      return res.data;
     } catch (error) {
       console.error("Error fetching members data:", error);
+      return null;
     }
   };
 
+  const members = await fetchMembers();
   const membersArray = members?.data;
   // Find PI by name
   const principalInvestigator = membersArray?.find(member =>
@@ -167,7 +165,6 @@ export default function People() {
         </div>
         </div>
       </div>
-
 
       <Footer />
     </div>
