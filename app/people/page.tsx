@@ -1,4 +1,3 @@
-'use client'
 import axios from "axios";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -9,7 +8,6 @@ import { MdEmail } from "react-icons/md";
 
 
 export const dynamic = 'force-dynamic';
-
 export default async function People() {
   const fetchMembers = async () => {
     const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/members?populate=*`;
@@ -29,16 +27,16 @@ export default async function People() {
   const members = await fetchMembers();
   const membersArray = members?.data;
   // Find PI by name
-  const principalInvestigator = membersArray?.find(member =>
+  const principalInvestigator = membersArray?.find((member: any) =>
     member.firstname.toLowerCase() === "eduardo"
   );
   // Filter out PI from other members
-  const labMembers = membersArray?.filter(member =>
+  const labMembers = membersArray?.filter((member: any) =>
     member.firstname.toLowerCase() !== "eduardo" &&
     !member.alum // Exclude alumni from lab members
   );
   // Filter alumni members
-  const alumniMembers = membersArray?.filter(member =>
+  const alumniMembers = membersArray?.filter((member: any) =>
     member.alum
   );
 
@@ -95,7 +93,7 @@ export default async function People() {
       <div className="max-w-6xl mx-auto my-4 p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold mb-6">Lab members</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {labMembers?.map((member) => (
+          {labMembers?.map((member: any) => (
             <div key={member.id} className="flex flex-col items-center h-full p-4 bg-white rounded-lg">
               {member.profilepic?.url && (
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-4">
@@ -130,7 +128,7 @@ export default async function People() {
         </div>
         <h2 className="text-3xl font-bold mb-6 mt-24">Alumni</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {alumniMembers?.map((member) => (
+          {alumniMembers?.map((member: any) => (
             <div key={member.id} className="flex flex-col items-center h-full p-4 bg-white rounded-lg">
               {member.profilepic?.url && (
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-4">

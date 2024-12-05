@@ -1,45 +1,38 @@
-'use client'
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ProjectsGrid from './projectsgrid';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Project } from "@/types/project";
 
-export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
+async function getProjects() {
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
+  const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
+  const headers = {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
+  };
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
-      const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
-      const headers = {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
-      };
+  const res = await fetch(url, { headers });
+  if (!res.ok) {
+    throw new Error('Failed to fetch projects');
+  }
 
-      try {
-        const res = await axios.get(url, { headers });
-        const projectsWithFullImageUrls = res.data.data.map((project: Project) => ({
-          ...project,
-          gallery: project.gallery?.map((image) => ({
-            ...image,
-            formats: image.formats ? {
-              ...image.formats,
-              thumbnail: image.formats.thumbnail ? {
-                ...image.formats.thumbnail,
-                url: `${imgurl}${image.formats.thumbnail.url}`
-              } : undefined
-            } : undefined
-          }))
-        }));
-        setProjects(projectsWithFullImageUrls);
-      } catch (error) {
-        console.error("Error fetching projects data:", error);
-      }
-    };
+  const data = await res.json();
+  return data.data.map((project: Project) => ({
+    ...project,
+    gallery: project.gallery?.map((image) => ({
+      ...image,
+      formats: image.formats ? {
+        ...image.formats,
+        thumbnail: image.formats.thumbnail ? {
+          ...image.formats.thumbnail,
+          url: `${imgurl}${image.formats.thumbnail.url}`
+        } : undefined
+      } : undefined
+    }))
+  }));
+}
 
-    fetchProjects();
-  }, []);
+export default async function ProjectsPage() {
+  const projects = await getProjects();
 
   return (
     <div>
