@@ -76,11 +76,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
             <div className="w-full lg:w-1/2">
 
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none ">
                 {project.about?.map((textItem, i) => (
                   <React.Fragment key={i}>
                     {textItem.type === "paragraph" ? (
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 text-justify sm:text-sm md:text-md lg:text-lg">
                         {textItem.children?.map((child, j) => (
                           <React.Fragment key={`${i}-${j}`}>
                             {child.bold ? <strong>{child.text}</strong> : child.text}
