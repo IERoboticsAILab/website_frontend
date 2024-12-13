@@ -46,6 +46,7 @@ async function getResearchLines() {
   const data = await res.json();
   return data.data.map((researchLine: Project) => ({
     ...researchLine,
+    researchLine: true,
     gallery: researchLine.gallery?.map((image) => ({
       ...image,
       formats: image.formats ? {

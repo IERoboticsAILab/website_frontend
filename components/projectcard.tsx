@@ -9,9 +9,10 @@ interface ProjectCardProps {
   description: string;
   imageUrl?: string;
   layout?: 'overlay' | 'stacked';
+  researchLine?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ name, title, description, imageUrl, layout = 'overlay' }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ name, title, description, imageUrl, layout = 'overlay', researchLine = false }) => {
   const [imgSrc, setImgSrc] = useState(imageUrl || '/walle.jpg');
 
   const handleImageError = () => {
@@ -20,8 +21,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ name, title, description, ima
 
   const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
 
+  const route = researchLine ? `/researchlines/${slug}` : `/projects/${slug}`;
+
   return (
-    <Link href={`/projects/${slug}`} className="block h-full">
+    <Link href={route} className="block h-full">
       <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group h-full">
         <div className={layout === 'stacked' ? 'h-48' : 'h-full'}>
           <Image

@@ -18,6 +18,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
               ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`
               : '/walle.jpg'}
             layout="stacked"
+            researchLine={project.researchLine}
           />
         </div>
       ))}
