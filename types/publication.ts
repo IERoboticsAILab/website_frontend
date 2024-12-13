@@ -14,6 +14,7 @@ export interface Publication {
   date: string;
   members: Member[];
   projects: Project[];
+  image: string;
 }
 
 interface Pagination {

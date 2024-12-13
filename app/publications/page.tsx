@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 export const dynamic = 'force-dynamic';
 
 export default async function PublicationsPage() {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members][populate]=*&populate[projects][populate][0]=banner`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/publications?populate[members][populate]=*&populate[projects][populate][0]=banner&populate[image][populate]=*`;
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };
@@ -32,9 +32,11 @@ export default async function PublicationsPage() {
             <div key={pub.id} className="flex flex-col md:flex-row gap-4 border-b pb-8">
               <div className="md:w-1/3">
                 <Image
-                  src={pub.projects[0].banner?.url
-                    ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${pub.projects[0].banner.url}`
-                    : '/wall-e.jpg'
+                  src={pub.image?.url
+                    ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${pub.image.url}`
+                    : pub.projects[0].banner?.url
+                      ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${pub.projects[0].banner.url}`
+                      : '/wall-e.jpg'
                   }
                   alt={pub.name}
                   width={300}
