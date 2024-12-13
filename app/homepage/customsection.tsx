@@ -11,14 +11,16 @@ function CustomSection({ customarea }: CustomSectionProps) {
   return (
     <div className="w-full bg-[#241f21]">
       <div className="mx-10 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-white">Mission</h1>
         <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2">
             <div className="text-xl mb-4 text-white leading-relaxed">
+            <h1 className="text-3xl font-bold mb-8 text-white">Mission</h1>
               {customarea?.[0]?.text?.map((textItem, i) => (
                 <div key={i}>
+
                   {textItem.children?.map((child, j) => (
                     <div key={`${i}-${j}`}>
+
                       {textItem.type === "paragraph" ? (
                         <p>{child.text}</p>
                       ) : textItem.type === "heading" ? (
