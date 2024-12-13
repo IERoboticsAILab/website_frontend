@@ -58,7 +58,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
       return (
         <ListComponent className={`${listStyle} ml-6 mt-2 text-gray-600`}>
           {content.children.map((item: IntroChild | { type: "list-item", children: IntroChild[] }, index) => (
-            <li key={index}>
+            <li key={index} className="text-[15px]">
               {item.children && item.children.map((child: IntroChild, childIndex: number) => (
                 <React.Fragment key={childIndex}>
                   {renderText(child)}
@@ -101,7 +101,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
     }
 
     return (
-      <p className="text-md mt-2 text-gray-600">
+      <p className="text-[15px] mt-2 text-gray-600">
         {children}
       </p>
     );
