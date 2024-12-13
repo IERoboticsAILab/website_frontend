@@ -5,13 +5,14 @@ import Footer from '@/components/footer';
 import Image from 'next/image';
 import { Projects } from '@/types/project';
 import Gallery from '@/app/components/Gallery';
+import ProjectCard from '@/components/projectcard';
 
 interface ProjectPageProps {
   params: { slug: string };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/research-lines?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members&populate[projects][populate]=*`;
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };
@@ -33,6 +34,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) {
     console.log("Project not found for slug:", params.slug);
     notFound();
+  } else {
+    console.log(project);
   }
 
   return (
@@ -118,6 +121,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       </a>
                     )}
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {project.projects && project.projects.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-3xl font-bold mb-8 text-gray-900">Related Projects</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {project.projects.map((project) => (
+                <div key={project.id} className="w-full">
+                  <ProjectCard
+                    name={project.name}
+                    title={project.name}
+                    description={project.tagline}
+                    imageUrl={project.banner?.url
+                      ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`
+                      : '/walle.jpg'}
+                    layout="stacked"
+                    researchLine={false}
+                  />
                 </div>
               ))}
             </div>

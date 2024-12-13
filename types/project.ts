@@ -22,6 +22,7 @@ export interface Project {
   updatedAt: string;
   publishedAt: string;
   researchLine: boolean;
+  projects: Project[];
   banner: {
     id: number;
     documentId: string;
