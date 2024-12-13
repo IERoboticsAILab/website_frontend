@@ -1,6 +1,4 @@
-'use client'
 import axios from "axios";
-import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
@@ -8,13 +6,9 @@ import { Members } from "@/types/members";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-export default function People() {
-  const [members, setMembers] = useState<Members>();
 
-  useEffect(() => {
-    fetchMembers();
-  }, []);
-
+export const dynamic = 'force-dynamic';
+export default async function People() {
   const fetchMembers = async () => {
     const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/members?populate=*`;
     const headers = {
@@ -23,25 +17,31 @@ export default function People() {
 
     try {
       const res = await axios.get(url, { headers });
-      setMembers(res.data);
+      return res.data;
     } catch (error) {
       console.error("Error fetching members data:", error);
+      return null;
     }
   };
 
+  const members = await fetchMembers();
   const membersArray = members?.data;
   // Find PI by name
-  const principalInvestigator = membersArray?.find(member =>
+  const principalInvestigator = membersArray?.find((member: any) =>
     member.firstname.toLowerCase() === "eduardo"
   );
-  // Filter out PI from other members
-  const labMembers = membersArray?.filter(member =>
+  // Filter out PI from other members and sort alphabetically
+  const labMembers = membersArray?.filter((member: any) =>
     member.firstname.toLowerCase() !== "eduardo" &&
     !member.alum // Exclude alumni from lab members
+  ).sort((a: any, b: any) =>
+    a.lastnames.localeCompare(b.lastnames)
   );
-  // Filter alumni members
-  const alumniMembers = membersArray?.filter(member =>
+  // Filter and sort alumni members
+  const alumniMembers = membersArray?.filter((member: any) =>
     member.alum
+  ).sort((a: any, b: any) =>
+    a.lastnames.localeCompare(b.lastnames)
   );
 
   return (
@@ -97,7 +97,7 @@ export default function People() {
       <div className="max-w-6xl mx-auto my-4 p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold mb-6">Lab members</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {labMembers?.map((member) => (
+          {labMembers?.map((member: any) => (
             <div key={member.id} className="flex flex-col items-center h-full p-4 bg-white rounded-lg">
               {member.profilepic?.url && (
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-4">
@@ -132,7 +132,7 @@ export default function People() {
         </div>
         <h2 className="text-3xl font-bold mb-6 mt-24">Alumni</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {alumniMembers?.map((member) => (
+          {alumniMembers?.map((member: any) => (
             <div key={member.id} className="flex flex-col items-center h-full p-4 bg-white rounded-lg">
               {member.profilepic?.url && (
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-4">
@@ -167,7 +167,6 @@ export default function People() {
         </div>
         </div>
       </div>
-
 
       <Footer />
     </div>

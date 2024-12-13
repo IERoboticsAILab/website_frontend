@@ -2,8 +2,26 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
 
+2. Set up your environment variables:
+- Copy `.env.example` to `.env`
+- Fill in the required environment variables:
+  ```
+  # Strapi API Configuration
+  NEXT_PUBLIC_STRAPI_API_URL=http://your-strapi-host:1337/api
+  NEXT_PUBLIC_STRAPI_API_URL_IMG=http://your-strapi-host:1337
+  NEXT_PUBLIC_STRAPI_API_KEY=your-strapi-api-key
+  ```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
@@ -14,7 +32,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:8081](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

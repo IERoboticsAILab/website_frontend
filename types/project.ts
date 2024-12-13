@@ -4,6 +4,7 @@ import { Publication } from "./publication";
 type RichTextNode = {
   type: string;
   children: Array<{
+    bold?: boolean;
     type: string;
     text?: string;
   }>;
@@ -21,6 +22,8 @@ export interface Project {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  researchLine: boolean;
+  projects: Project[];
   banner: {
     id: number;
     documentId: string;

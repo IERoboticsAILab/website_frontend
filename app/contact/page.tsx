@@ -1,12 +1,10 @@
-"use client";
-
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { JobPosts } from "@/types/jobpost";
 import axios from "axios";
 import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
-import Cal from "@calcom/embed-react";
+import CalendarSection from "./components/CalendarSection";
 
 // Add this line to enable dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -74,11 +72,6 @@ export default async function Contact() {
           </div>
         </div>
 
-        {/* Add Calendar Section */}
-        <section className="mt-12 bg-white p-6">
-          <Cal calLink="ieroboticslab" config={{ theme: "light" }} style={{ transform: "scale(1.2)", marginTop: "2rem" }}></Cal>
-        </section>
-
         <section className="mt-12">
           <h2 className="text-3xl font-bold mb-6">Open positions and more</h2>
           <p className="text-lg mb-8">
@@ -131,6 +124,8 @@ export default async function Contact() {
             ))}
           </div>
         </section>
+
+        <CalendarSection />
       </main>
       <Footer />
     </div>

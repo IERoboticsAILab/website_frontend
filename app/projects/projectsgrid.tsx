@@ -11,13 +11,14 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
       {projects.map((project: Project) => (
         <div key={project.id} className="w-full max-w-[400px] h-full">
           <ProjectCard
-            id={project.id.toString()}
+            name={project.name}
             title={project.name}
             description={project.tagline}
             imageUrl={project.banner?.url
               ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`
               : '/walle.jpg'}
             layout="stacked"
+            researchLine={project.researchLine}
           />
         </div>
       ))}
