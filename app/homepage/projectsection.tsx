@@ -41,7 +41,7 @@ export default async function ProjectsSection() {
             <div key={project.id}
                  className="w-80 h-80 flex-shrink-0">
               <ProjectCard
-                id={project.id.toString()}
+                name={project.name}
                 title={project.name}
                 description={project.tagline}
                 imageUrl={project.banner ?
