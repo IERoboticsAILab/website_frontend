@@ -58,7 +58,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
       return (
         <ListComponent className={`${listStyle} ml-6 mt-2 text-gray-600`}>
           {content.children.map((item: IntroChild | { type: "list-item", children: IntroChild[] }, index) => (
-            <li key={index} className="text-[0.9rem]">
+            <li key={index} className="text-md md:text-[1.2rem]">
               {item.children && item.children.map((child: IntroChild, childIndex: number) => (
                 <React.Fragment key={childIndex}>
                   {renderText(child)}
@@ -101,7 +101,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
     }
 
     return (
-      <p className="text-[0.9rem] mt-2 text-gray-600">
+      <p className="text-md md:text-[1.2rem] mt-2 text-gray-600 text-justify">
         {children}
       </p>
     );
@@ -109,14 +109,14 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
 
   return (
     <div className="flex flex-col md:flex-row justify-between m-8">
-      <div className="flex flex-col mx-2 w-full md:w-[45%] mb-6 md:mb-0">
+      <div className="flex flex-col mx-2 w-full md:w-[49.5%] mb-6 md:mb-0">
         {intro.map((content, index) => (
           <React.Fragment key={index}>
             {renderContent(content)}
           </React.Fragment>
         ))}
       </div>
-      <div className="w-full md:w-[45%] flex justify-center flex-col items-center my-auto">
+      <div className="w-full md:w-[40%] flex justify-center flex-col items-center my-auto">
         <div className="relative w-full aspect-video border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
           <iframe
             className="w-full h-full"

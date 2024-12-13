@@ -30,14 +30,18 @@ export default async function People() {
   const principalInvestigator = membersArray?.find((member: any) =>
     member.firstname.toLowerCase() === "eduardo"
   );
-  // Filter out PI from other members
+  // Filter out PI from other members and sort alphabetically
   const labMembers = membersArray?.filter((member: any) =>
     member.firstname.toLowerCase() !== "eduardo" &&
     !member.alum // Exclude alumni from lab members
+  ).sort((a: any, b: any) =>
+    a.lastnames.localeCompare(b.lastnames)
   );
-  // Filter alumni members
+  // Filter and sort alumni members
   const alumniMembers = membersArray?.filter((member: any) =>
     member.alum
+  ).sort((a: any, b: any) =>
+    a.lastnames.localeCompare(b.lastnames)
   );
 
   return (
