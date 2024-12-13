@@ -46,7 +46,7 @@ export default async function PublicationsPage() {
               </div>
               <div className="md:w-2/3">
                 <p className="text-sm text-gray-600 mb-2">{`${pub.date?.split('-').slice(0,2).reverse().join('-')}`}</p>
-                <Link href={`/projects/${pub.projects?.[0]?.id}`}>
+                <Link href={`/projects/${pub.projects?.[0]?.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`}>
                   <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 hover:underline">{pub.name}</h2>
                 </Link>
                 <p className="text-sm text-gray-700 mb-4">{pub.authors}</p>
