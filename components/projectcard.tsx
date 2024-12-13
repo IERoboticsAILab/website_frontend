@@ -4,22 +4,24 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 interface ProjectCardProps {
-  id: string;
+  name: string;
   title: string;
   description: string;
   imageUrl?: string;
   layout?: 'overlay' | 'stacked';
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, description, imageUrl, layout = 'overlay' }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ name, title, description, imageUrl, layout = 'overlay' }) => {
   const [imgSrc, setImgSrc] = useState(imageUrl || '/walle.jpg');
 
   const handleImageError = () => {
     setImgSrc('/walle.jpg');
   };
 
+  const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
+
   return (
-    <Link href={`/projects/${id}`} className="block h-full">
+    <Link href={`/projects/${slug}`} className="block h-full">
       <div className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group h-full">
         <div className={layout === 'stacked' ? 'h-48' : 'h-full'}>
           <Image

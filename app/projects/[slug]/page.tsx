@@ -6,11 +6,9 @@ import Image from 'next/image';
 import { Projects } from '@/types/project';
 import Gallery from '@/app/components/Gallery';
 
-
 interface ProjectPageProps {
-  params: { id: string };
+  params: { slug: string };
 }
-
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members`;
@@ -27,11 +25,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const project = projects?.data.find(p => p.id.toString() === params.id);
+  const project = projects?.data.find(p => {
+    const projectSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return projectSlug === params.slug;
+  });
+
   if (!project) {
+    console.log("Project not found for slug:", params.slug);
     notFound();
   }
-  // add arrows to the gallery
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />

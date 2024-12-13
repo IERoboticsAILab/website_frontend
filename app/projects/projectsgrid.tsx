@@ -11,7 +11,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
       {projects.map((project: Project) => (
         <div key={project.id} className="w-full max-w-[400px] h-full">
           <ProjectCard
-            id={project.id.toString()}
+            name={project.name}
             title={project.name}
             description={project.tagline}
             imageUrl={project.banner?.url
