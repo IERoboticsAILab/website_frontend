@@ -1,7 +1,7 @@
 'use client'
 import ProjectCard from '@/components/projectcard';
 import { useEffect, useState } from 'react';
-import { getProjects } from '@/app/homepage/getProjects';
+import { getProjects } from '@/lib/getProjects';
 import { Project } from '@/types/project';
 
 export const dynamic = 'force-dynamic';
