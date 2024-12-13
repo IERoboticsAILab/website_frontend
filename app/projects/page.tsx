@@ -67,8 +67,14 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
   const researchLines = await getResearchLines();
 
-  const combinedItems = [...projects, ...researchLines];
+  // Filter out projects that have the same name as research lines
+  const filteredProjects = projects.filter((project: Project) =>
+    !researchLines.some((researchLine: Project) =>
+      researchLine.name.toLowerCase() === project.name.toLowerCase()
+    )
+  );
 
+  const combinedItems = [...filteredProjects, ...researchLines];
 
   return (
     <div>
