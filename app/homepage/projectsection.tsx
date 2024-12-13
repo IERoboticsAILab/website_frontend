@@ -31,6 +31,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   imageUrl={project.banner ?
                     `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}` :
                     '/walle.jpg'}
+                  researchLine={project.researchLine || false}
                 />
               </div>
             ))}
