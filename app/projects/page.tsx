@@ -3,6 +3,8 @@ import Footer from "@/components/footer";
 import ProjectsGrid from './projectsgrid';
 import { Project } from "@/types/project";
 
+export const dynamic = 'force-dynamic';
+
 async function getProjects() {
   const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
   const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
