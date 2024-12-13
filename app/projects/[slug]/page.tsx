@@ -5,6 +5,7 @@ import Footer from '@/components/footer';
 import Image from 'next/image';
 import { Projects } from '@/types/project';
 import Gallery from '@/app/components/Gallery';
+import React from 'react';
 
 interface ProjectPageProps {
   params: { slug: string };
@@ -77,13 +78,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
               <div className="prose prose-lg max-w-none">
                 {project.about?.map((textItem, i) => (
-                  textItem.children?.map((child, j) => (
-                    textItem.type === "paragraph" ? (
-                      <p key={`${i}-${j}`} className="text-gray-600">{child.text}</p>
+                  <React.Fragment key={i}>
+                    {textItem.type === "paragraph" ? (
+                      <p className="text-gray-600">
+                        {textItem.children?.map((child, j) => (
+                          <React.Fragment key={`${i}-${j}`}>
+                            {child.bold ? <strong>{child.text}</strong> : child.text}
+                          </React.Fragment>
+                        ))}
+                      </p>
                     ) : textItem.type === "heading" ? (
-                      <h2 key={`${i}-${j}`} className="text-2xl font-semibold text-gray-800 mb-4">{child.text}</h2>
-                    ) : null
-                  ))
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                        {textItem.children?.map((child, j) => (
+                          <React.Fragment key={`${i}-${j}`}>{child.text}</React.Fragment>
+                        ))}
+                      </h2>
+                    ) : null}
+                  </React.Fragment>
                 ))}
               </div>
             </div>

@@ -4,6 +4,7 @@ import { Publication } from "./publication";
 type RichTextNode = {
   type: string;
   children: Array<{
+    bold?: boolean;
     type: string;
     text?: string;
   }>;
