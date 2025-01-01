@@ -30,21 +30,24 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
   const renderText = (child: IntroChild) => {
     let content: React.ReactNode = child.text;
 
-    // Wrap content in appropriate styling elements
+    // Create a wrapper span to ensure inline styling doesn't break paragraph structure
+    const wrappedContent = <span>{content}</span>;
+
+    // Apply styling to the wrapped content
     if (child.bold) {
-      content = <strong>{content}</strong>;
+      content = <strong>{wrappedContent}</strong>;
     }
     if (child.italic) {
-      content = <em>{content}</em>;
+      content = <em>{wrappedContent}</em>;
     }
     if (child.underline) {
-      content = <u>{content}</u>;
+      content = <u>{wrappedContent}</u>;
     }
     if (child.strikethrough) {
-      content = <del>{content}</del>;
+      content = <del>{wrappedContent}</del>;
     }
     if (child.type === "link" && child.url) {
-      content = <a href={child.url} className="text-blue-600 hover:underline">{content}</a>;
+      content = <a href={child.url} className="text-blue-600 hover:underline">{wrappedContent}</a>;
     }
 
     return content;
