@@ -56,14 +56,18 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
       const listStyle = content.format === 'ordered' ? 'list-decimal' : 'list-disc';
 
       return (
-        <ListComponent className={`${listStyle} ml-6 mt-2 text-gray-600`}>
+        <ListComponent className={`${listStyle} ml-6 mt-2 mb-4 text-gray-600`}>
           {content.children.map((item: IntroChild | { type: "list-item", children: IntroChild[] }, index) => (
-            <li key={index} className="text-md md:text-[1.02rem]">
-              {item.children && item.children.map((child: IntroChild, childIndex: number) => (
-                <React.Fragment key={childIndex}>
-                  {renderText(child)}
-                </React.Fragment>
-              ))}
+            <li key={index} className="text-md md:text-[1.02rem] mb-1">
+              {('type' in item && item.type === 'list-item') ? (
+                item.children.map((child: IntroChild, childIndex: number) => (
+                  <React.Fragment key={childIndex}>
+                    {renderText(child)}
+                  </React.Fragment>
+                ))
+              ) : (
+                renderText(item as IntroChild)
+              )}
             </li>
           ))}
         </ListComponent>
