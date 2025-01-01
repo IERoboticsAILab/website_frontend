@@ -27,26 +27,35 @@ interface IntroProps {
 export const dynamic = 'force-dynamic';
 
 function Intro({ videolink, videocaption, intro }: IntroProps) {
+  console.log('Full intro prop:', JSON.stringify(intro, null, 2));
+
   const renderText = (child: IntroChild) => {
+    console.log('renderText called with:', child);
     let content: React.ReactNode = child.text;
 
     // Create a wrapper span to ensure inline styling doesn't break paragraph structure
     const wrappedContent = <span>{content}</span>;
+    console.log('Initial wrapped content created');
 
     // Apply styling to the wrapped content
     if (child.bold) {
+      console.log('Applying bold to:', child.text);
       content = <strong>{wrappedContent}</strong>;
     }
     if (child.italic) {
+      console.log('Applying italic to:', child.text);
       content = <em>{wrappedContent}</em>;
     }
     if (child.underline) {
+      console.log('Applying underline to:', child.text);
       content = <u>{wrappedContent}</u>;
     }
     if (child.strikethrough) {
+      console.log('Applying strikethrough to:', child.text);
       content = <del>{wrappedContent}</del>;
     }
     if (child.type === "link" && child.url) {
+      console.log('Applying link to:', child.text, 'with URL:', child.url);
       content = <a href={child.url} className="text-blue-600 hover:underline">{wrappedContent}</a>;
     }
 
@@ -54,42 +63,58 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
   };
 
   const renderContent = (content: IntroContent) => {
+    console.log('renderContent called with type:', content.type);
+    console.log('Content full object:', content);
+
     if (content.type === 'list') {
+      console.log('Rendering list with format:', content.format);
       const ListComponent = content.format === 'ordered' ? 'ol' : 'ul';
       const listStyle = content.format === 'ordered' ? 'list-decimal' : 'list-disc';
 
       return (
         <ListComponent className={`${listStyle} ml-6 mt-2 mb-4 text-gray-600`}>
-          {content.children.map((item: IntroChild | { type: "list-item", children: IntroChild[] }, index) => (
-            <li key={index} className="text-md md:text-[1.02rem] mb-1">
-              {('type' in item && item.type === 'list-item') ? (
-                item.children.map((child: IntroChild, childIndex: number) => (
-                  <React.Fragment key={childIndex}>
-                    {renderText(child)}
-                  </React.Fragment>
-                ))
-              ) : (
-                renderText(item as IntroChild)
-              )}
-            </li>
-          ))}
+          {content.children.map((item: IntroChild | { type: "list-item", children: IntroChild[] }, index) => {
+            console.log('List item:', item);
+            return (
+              <li key={index} className="text-md md:text-[1.02rem] mb-1">
+                {('type' in item && item.type === 'list-item') ? (
+                  item.children.map((child: IntroChild, childIndex: number) => {
+                    console.log('List item child:', child);
+                    return (
+                      <React.Fragment key={childIndex}>
+                        {renderText(child)}
+                      </React.Fragment>
+                    );
+                  })
+                ) : (
+                  renderText(item as IntroChild)
+                )}
+              </li>
+            );
+          })}
         </ListComponent>
       );
     }
 
+    console.log('Processing non-list content children:', content.children);
     const children = content.children.map((child: IntroChild | { type: "list-item", children: IntroChild[] }, index) => {
       if ('type' in child && child.type === 'list-item') {
-        return (
-          <React.Fragment key={index}>
-            {child.children.map((subChild) => renderText(subChild))}
-          </React.Fragment>
-        );
+        console.log('Processing list-item type child:', child);
+        return child.children.map((subChild, subIndex) => {
+          console.log('Processing list-item subchild:', subChild);
+          return (
+            <React.Fragment key={`${index}-${subIndex}`}>
+              {renderText(subChild)}
+            </React.Fragment>
+          );
+        });
       }
+      console.log('Processing regular child:', child);
       return <React.Fragment key={index}>{renderText(child as IntroChild)}</React.Fragment>;
     });
 
     if (content.type === 'heading') {
-      // Handle different heading levels
+      console.log('Rendering heading level:', content.level);
       const headingClasses = {
         1: "text-2xl md:text-3xl font-bold text-gray-900",
         2: "text-xl md:text-2xl font-bold text-gray-900 mt-4",
@@ -107,21 +132,26 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
       );
     }
 
+    console.log('Rendering paragraph with children:', children);
     return (
-      <p className="text-md md:text-[1.2rem] mt-2 text-gray-600 text-justify">
+      <p className="text-md md:text-[1.2rem] mt-2 mb-4 text-gray-600 text-justify">
         {children}
       </p>
     );
   };
 
+  console.log('Rendering full component with intro length:', intro.length);
   return (
     <div className="flex flex-col md:flex-row justify-between m-8">
       <div className="flex flex-col mx-2 w-full md:w-[49.9%] mb-6 md:mb-0">
-        {intro.map((content, index) => (
-          <React.Fragment key={index}>
-            {renderContent(content)}
-          </React.Fragment>
-        ))}
+        {intro.map((content, index) => {
+          console.log('Rendering content index:', index);
+          return (
+            <React.Fragment key={index}>
+              {renderContent(content)}
+            </React.Fragment>
+          );
+        })}
       </div>
       <div className="w-full md:w-[40%] flex justify-center flex-col items-center my-auto">
         <div className="relative w-full aspect-video border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
