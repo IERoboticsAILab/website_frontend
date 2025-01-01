@@ -33,11 +33,9 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
     console.log('renderText called with:', child);
     let content: React.ReactNode = child.text;
 
-    // Create a wrapper span to ensure inline styling doesn't break paragraph structure
     const wrappedContent = <span>{content}</span>;
     console.log('Initial wrapped content created');
 
-    // Apply styling to the wrapped content
     if (child.bold) {
       console.log('Applying bold to:', child.text);
       content = <strong>{wrappedContent}</strong>;
