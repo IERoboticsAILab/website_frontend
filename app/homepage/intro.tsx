@@ -142,7 +142,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
   return (
     <div className="flex flex-col md:flex-row justify-between m-8">
       <div className="flex flex-col mx-2 w-full md:w-[49.9%] mb-6 md:mb-0">
-        {intro.slice(0, -2).map((content, index) => {
+        {intro.slice(0, -1).map((content, index) => {
           console.log('Rendering content index:', index);
           return (
             <React.Fragment key={index}>
