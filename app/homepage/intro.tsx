@@ -151,7 +151,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
           );
         })}
         <p className="text-md md:text-[1.2rem] mt-2 mb-4 text-gray-600 text-justify">
-          <strong>CyPhy Life</strong> is an independent research initiative of the <a href="https://ixlabs.ie.edu/" target="_blank" rel="noopener noreferrer">Impact Xcelerator Labs</a> at the <a href="https://www.ie.edu/school-science-technology/" target="_blank" rel="noopener noreferrer">School of Science and Technology</a>.
+          <strong>CyPhy Life</strong> is an independent research initiative of the <a href="https://ixlabs.ie.edu/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Impact Xcelerator Labs</a> at the <a href="https://www.ie.edu/school-science-technology/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">School of Science and Technology</a>.
         </p>
       </div>
       <div className="w-full md:w-[40%] flex justify-center flex-col items-center my-auto">
