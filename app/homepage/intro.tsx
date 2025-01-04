@@ -142,7 +142,7 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
   return (
     <div className="flex flex-col md:flex-row justify-between m-8">
       <div className="flex flex-col mx-2 w-full md:w-[49.9%] mb-6 md:mb-0">
-        {intro.map((content, index) => {
+        {intro.slice(0, -2).map((content, index) => {
           console.log('Rendering content index:', index);
           return (
             <React.Fragment key={index}>
@@ -150,6 +150,9 @@ function Intro({ videolink, videocaption, intro }: IntroProps) {
             </React.Fragment>
           );
         })}
+        <p className="text-md md:text-[1.2rem] mt-2 mb-4 text-gray-600 text-justify">
+          <strong>CyPhy Life</strong> is an independent research initiative of the <a href="https://ixlabs.ie.edu/" target="_blank" rel="noopener noreferrer">Impact Xcelerator Labs</a> at the <a href="https://www.ie.edu/school-science-technology/" target="_blank" rel="noopener noreferrer">School of Science and Technology</a>.
+        </p>
       </div>
       <div className="w-full md:w-[40%] flex justify-center flex-col items-center my-auto">
         <div className="relative w-full aspect-video border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
