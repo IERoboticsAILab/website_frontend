@@ -40,8 +40,10 @@ export default async function Contact() {
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
                 <div>
-                  <p>P.º de la Castellana, 259</p>
-                  <p>Fuencarral-El Pardo, 28046 Madrid</p>
+                  <p>School of Science and Technology</p>
+                  <p>IE Tower</p>
+                  <p>P.º de la Castellana, 259E</p>
+                  <p>Fuencarral-El Pardo, 28046 Madrid, Spain</p>
                   <p>Floor 5</p>
                 </div>
               </div>
