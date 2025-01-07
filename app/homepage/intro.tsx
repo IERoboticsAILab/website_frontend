@@ -2,6 +2,7 @@
 import React from 'react';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
+export const dynamic = 'force-dynamic';
 interface IntroProps {
   videolink: string;
   videocaption: string;
