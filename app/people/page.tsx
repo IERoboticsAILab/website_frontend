@@ -2,8 +2,7 @@ import axios from "axios";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import { Members } from "@/types/members";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 
@@ -76,6 +75,12 @@ export default async function People() {
                     <span className="inline-block align-middle">Email</span>
                   </a>
                 )}
+                {principalInvestigator.website && (
+                  <a href={principalInvestigator.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center gap-1">
+                  <FaGlobe className="text-xl inline-block align-middle" />
+                  <span className="inline-block align-middle">Website</span>
+                </a>
+                )}
               </div>
             </div>
             {principalInvestigator.profilepic?.url && (
@@ -122,8 +127,13 @@ export default async function People() {
                   </a>
                 )}
                 {member.email && (
-                  <a href={`mailto:${member.email}`} className="text-blue-600 hover:text-blue-800">
+                    <a href={`mailto:${member.email}`} className="text-blue-600 hover:text-blue-800">
                     <MdEmail className="text-xl" />
+                  </a>
+                )}
+                {member.website && (
+                  <a href={member.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
+                    <FaGlobe className="text-xl" />
                   </a>
                 )}
               </div>

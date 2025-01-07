@@ -46,6 +46,7 @@ export type Member = {
   linkedin: string;
   bio: string;
   email: string;
+  website: string;
   position: string;
   createdAt: string;
   updatedAt: string;
