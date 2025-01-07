@@ -23,7 +23,7 @@ function Intro({ videolink, videocaption, intro2 }: IntroProps) {
             p: ({ ...props }) => <p className="text-md md:text-[1.2rem] mt-2 mb-4 text-gray-600 text-justify" {...props} />,
             ul: ({ ...props }) => <ul className="list-disc ml-6 mt-2 text-gray-600" {...props} />,
             ol: ({ ...props }) => <ol className="list-decimal ml-6 mt-2 text-gray-600" {...props} />,
-            li: ({ ...props }) => <li className="mb-2 text-md md:text-[1.02rem]" {...props} />,
+            li: ({ ...props }) => <li className="mb-2 text-md md:text-[1.2rem] " {...props} />,
             blockquote: ({ ...props }) => <blockquote className="border-l-4 border-border pl-4 italic my-4 text-foreground" {...props} />,
             code: ({ ...props }) => <code className="bg-muted rounded px-1 py-0.5 font-mono text-sm text-foreground" {...props} />
             }}
