@@ -25,12 +25,16 @@ export default async function Home() {
 
   try {
     const [landingRes, projectsRes, researchLinesRes] = await Promise.all([
-      axios.get(landingUrl, { headers }),
+      fetch(landingUrl, {
+        headers,
+        cache: 'no-store',
+        next: { revalidate: 0 }
+      }),
       axios.get<{ data: Project[] }>(projectsUrl, { headers }),
       axios.get<{ data: Project[] }>(researchLinesUrl, { headers })
     ]);
 
-    landing = landingRes.data;
+    landing = await landingRes.json();
 
     projects = projectsRes.data.data.map(project => ({
       ...project,
@@ -86,6 +90,7 @@ export default async function Home() {
         videolink={landing?.data?.videolink || ""}
         videocaption={landing?.data?.videocaption || ""}
         intro={landing?.data?.Intro || []}
+        intro2={landing?.data?.Intro2 || ""}
       />
       <ProjectsSection projects={combinedItems} />
       <CustomSection customarea={customarea || []} />

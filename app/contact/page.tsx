@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 import CalendarSection from "./components/CalendarSection";
 
-// Add this line to enable dynamic rendering
 export const dynamic = 'force-dynamic';
 
 export default async function Contact() {

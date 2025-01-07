@@ -8,6 +8,7 @@ export type Landing = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    Intro2: string;
     Intro: Array<{
       type: "heading" | "paragraph";
       level?: number;
