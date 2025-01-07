@@ -89,7 +89,6 @@ export default async function Home() {
       <Intro
         videolink={landing?.data?.videolink || ""}
         videocaption={landing?.data?.videocaption || ""}
-        intro={landing?.data?.Intro || []}
         intro2={landing?.data?.Intro2 || ""}
       />
       <ProjectsSection projects={combinedItems} />

@@ -1,33 +1,14 @@
 import ReactMarkdown from 'react-markdown';
 
-interface IntroChild {
-  text: string;
-  type: "text" | "link";
-  bold?: boolean;
-  italic?: boolean;
-  underline?: boolean;
-  strikethrough?: boolean;
-  url?: string;
-  children?: IntroChild[];
-}
-
-interface IntroContent {
-  type: "heading" | "paragraph" | "list";
-  level?: number;
-  format?: "unordered" | "ordered";
-  children: (IntroChild | { type: "list-item", children: IntroChild[] })[];
-}
-
 interface IntroProps {
   videolink: string;
   videocaption: string;
-  intro: IntroContent[];
   intro2: string;
 }
 
 export const dynamic = 'force-dynamic';
 
-function Intro({ videolink, videocaption, intro, intro2 }: IntroProps) {
+function Intro({ videolink, videocaption, intro2 }: IntroProps) {
   return (
     <div className="flex flex-col md:flex-row justify-between m-8">
       <div className="flex flex-col mx-2 w-full md:w-[49.9%] mb-6 md:mb-0">
