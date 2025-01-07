@@ -5,6 +5,7 @@ import axios from "axios";
 import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 import CalendarSection from "./components/CalendarSection";
+import Image from "next/image";
 
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +34,10 @@ export default async function Contact() {
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/2 bg-white p-6 rounded-lg shadow-md">
+          <div className="flex flex-row justify-center items-center mb-4">
+            <Image src="/school.png" alt="IE Tower" width={200} height={200} />
+            <Image src="/impact.png" alt="IE Tower" width={200} height={200} />
+          </div>
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">Physical Location</h2>
             <div className="space-y-2 mb-8">
               <div className="flex items-center text-gray-600">
@@ -67,7 +72,7 @@ export default async function Contact() {
               width="600"
               height="450"
               loading="lazy"
-              className="w-full h-[20rem]"
+              className="w-full h-full"
               title="IE University Location Map"
             />
           </div>
