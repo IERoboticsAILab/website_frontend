@@ -36,7 +36,7 @@ export default async function Contact() {
           <div className="md:w-1/2 bg-white p-6 rounded-lg shadow-md">
           <div className="flex flex-row justify-center items-center mb-4">
             <Image src="/school.png" alt="IE Tower" width={200} height={200} />
-            <Image src="/impact.png" alt="IE Tower" width={200} height={200} />
+            <Image src="/Impact.png" alt="IE Tower" width={200} height={200} />
           </div>
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">Physical Location</h2>
             <div className="space-y-2 mb-8">
