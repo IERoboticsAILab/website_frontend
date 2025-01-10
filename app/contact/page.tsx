@@ -38,18 +38,14 @@ export default async function Contact() {
             <Image src="/school.png" alt="IE Tower" width={300} height={300} />
             <Image src="/Impact.png" alt="IE Tower" width={300} height={300} />
           </div>
-            <h2 className="text-2xl font-semibold mb-6 text-gray-800">Physical Location</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">Physical Location</h2>
             <div className="space-y-2 mb-8">
               <div className="flex items-center text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
                 <div>
-                  <p>School of Science and Technology</p>
-                  <p>IE Tower</p>
-                  <p>P.º de la Castellana, 259E</p>
-                  <p>Fuencarral-El Pardo, 28046 Madrid, Spain</p>
-                  <p>Floor 5</p>
+                  <p>School of Science and Technology, IE Tower Floor 5<br /> P.º de la Castellana, 259E, Fuencarral-El Pardo, 28046 Madrid, Spain</p>
                 </div>
               </div>
             </div>
