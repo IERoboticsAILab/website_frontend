@@ -35,8 +35,8 @@ export default async function Contact() {
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/2 bg-white p-6 rounded-lg shadow-md">
           <div className="flex flex-row justify-center items-center mb-4">
-            <Image src="/school.png" alt="IE Tower" width={200} height={200} />
-            <Image src="/Impact.png" alt="IE Tower" width={200} height={200} />
+            <Image src="/school.png" alt="IE Tower" width={300} height={300} />
+            <Image src="/Impact.png" alt="IE Tower" width={300} height={300} />
           </div>
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">Physical Location</h2>
             <div className="space-y-2 mb-8">
@@ -51,18 +51,6 @@ export default async function Contact() {
                   <p>Fuencarral-El Pardo, 28046 Madrid, Spain</p>
                   <p>Floor 5</p>
                 </div>
-              </div>
-            </div>
-
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">Mailing Address</h3>
-            <div className="flex items-center text-gray-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
-              <div>
-                <p>P.º de la Castellana, 259</p>
-                <p>Fuencarral-El Pardo, 28046 Madrid</p>
               </div>
             </div>
           </div>
