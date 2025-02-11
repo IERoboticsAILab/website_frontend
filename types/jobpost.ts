@@ -10,6 +10,7 @@ export type JobPost = {
   publishedAt: string;
   date: string;
   note: string;
+  instructions: string;
 };
 
 export type JobPosts = {

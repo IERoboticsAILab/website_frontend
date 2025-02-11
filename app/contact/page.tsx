@@ -34,7 +34,7 @@ export default async function Contact() {
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/2 bg-white p-6 rounded-lg shadow-md">
-          <div className="flex flex-row justify-center items-center mb-4">
+          <div className="flex flex-col justify-center items-center mb-4">
             <Image src="/school.png" alt="IE Tower" width={300} height={300} />
             <Image src="/Impact.png" alt="IE Tower" width={300} height={300} />
           </div>
@@ -84,6 +84,13 @@ export default async function Contact() {
                     <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Requirements</h4>
                     <div className="mt-1 text-gray-700 prose prose-sm">
                       <ReactMarkdown>{job.requirements}</ReactMarkdown>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Application Instructions</h4>
+                    <div className="mt-1 text-gray-700 prose prose-sm">
+                      <ReactMarkdown>{job.instructions}</ReactMarkdown>
                     </div>
                   </div>
 
