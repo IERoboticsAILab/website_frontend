@@ -34,7 +34,7 @@ async function getProjects() {
 }
 
 async function getResearchLines() {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/research-lines?populate=*`;
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/research-lines?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members&populate[projects][populate]=*`;
   const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
   const headers = {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
