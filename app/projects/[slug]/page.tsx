@@ -77,6 +77,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="w-full lg:w-1/2">
 
               <div className="prose prose-lg max-w-none ">
+                <h1 className="text-2xl font-semibold text-gray-800 mb-4"> Abstract </h1>
                 {project.about?.map((textItem, i) => (
                   <React.Fragment key={i}>
                     {textItem.type === "paragraph" ? (
