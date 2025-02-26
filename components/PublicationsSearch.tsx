@@ -46,7 +46,7 @@ export default function PublicationsSearch({ publications }: PublicationsSearchP
           <div className="relative flex-grow">
             <input
               type="text"
-              placeholder="Search publications by title, authors, or content..."
+              placeholder="Search publications by title or content..."
               className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
