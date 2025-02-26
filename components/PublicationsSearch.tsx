@@ -28,7 +28,7 @@ export default function PublicationsSearch({ publications }: PublicationsSearchP
     return publications.filter((pub) => {
       const matchesSearchTerm = searchTerm === "" || (
         (pub.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        pub.authors?.join(" ").toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (Array.isArray(pub.authors) && pub.authors.join(" ").toLowerCase().includes(searchTerm.toLowerCase())) ||
         pub.abstract?.toLowerCase().includes(searchTerm.toLowerCase()))
       );
       
