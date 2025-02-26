@@ -17,6 +17,12 @@ export default async function PublicationsPage() {
   try {
     const res = await axios.get(url, { headers });
     publications = res.data;
+  // Sort publications by date in descending order (newest first)
+  publications.data.sort((a, b) => {
+    if (!a.date) return 1;  // If a has no date, put it at the end
+    if (!b.date) return -1; // If b has no date, put it at the end
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
   } catch (error) {
     console.error(error);
     notFound();

@@ -37,7 +37,7 @@ function Intro({ videolink, videocaption, intro2 }: IntroProps) {
             className="w-full h-full"
             src={videolink}
             title={videocaption}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="fullscreen"
           ></iframe>
         </div>
         <p className="text-center italic text-sm text-gray-700 mt-2">{videocaption}</p>

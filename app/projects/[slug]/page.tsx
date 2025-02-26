@@ -70,7 +70,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   className="absolute top-0 left-0 w-full h-full"
                   src={project.videolink}
                   title="Project Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allow="fullscreen"
                 ></iframe>
               </div>
             </div>
