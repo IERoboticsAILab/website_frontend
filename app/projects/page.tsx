@@ -76,7 +76,9 @@ export default async function ProjectsPage() {
     )
   );
 
-  const combinedItems = [...filteredProjects, ...researchLines];
+const visibleProjects = filteredProjects.filter((project: Project) => !project.hidden);
+
+  const combinedItems = [...visibleProjects, ...researchLines];
 
   return (
     <div>
