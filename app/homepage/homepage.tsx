@@ -72,6 +72,8 @@ export default async function Home() {
       )
     );
 
+    projects = projects.filter((project: Project) => !project.hidden);
+
   } catch (error) {
     console.error("Error fetching data:", error);
   }
