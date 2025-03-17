@@ -25,6 +25,7 @@ export interface Project {
   researchLine: boolean;
   hidden: boolean;
   projects: Project[];
+  InfoCard?: string;
   banner: {
     id: number;
     documentId: string;

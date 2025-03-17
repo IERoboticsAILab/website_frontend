@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Projects } from '@/types/project';
 import Gallery from '@/app/components/Gallery';
 import React from 'react';
-
+import ReactMarkdown from 'react-markdown';
 interface ProjectPageProps {
   params: { slug: string };
 }
@@ -77,7 +77,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="w-full lg:w-1/2">
 
               <div className="prose prose-lg max-w-none ">
-                <h1 className="text-2xl font-semibold text-gray-800 mb-4"> Abstract </h1>
+                <h1 className="text-[2.25em] font-semibold text-gray-800 mb-4">Abstract</h1>
                 {project.about?.map((textItem, i) => (
                   <React.Fragment key={i}>
                     {textItem.type === "paragraph" ? (
@@ -102,6 +102,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
+        {project.InfoCard && (
+          <div className="mb-16">
+            <div className="bg-white rounded-lg shadow-lg p-8 relative z-10">
+              <div className="prose prose-md max-w-none">
+                <ReactMarkdown>{project.InfoCard}</ReactMarkdown>
+              </div>
+            </div>
+          </div>
+        )}
         {project.publications?.length > 0 && (
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-gray-900">Publications</h2>
