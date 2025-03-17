@@ -7,6 +7,10 @@ import { Projects } from '@/types/project';
 import Gallery from '@/app/components/Gallery';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw'
+
+
+
 interface ProjectPageProps {
   params: { slug: string };
 }
@@ -104,9 +108,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {project.InfoCard && (
           <div className="mb-16">
-            <div className="bg-white rounded-lg shadow-lg p-8 relative z-10">
-              <div className="prose prose-md max-w-none">
-                <ReactMarkdown>{project.InfoCard}</ReactMarkdown>
+            <div className="bg-white rounded-lg shadow-lg p-8 relative z-10 overflow-hidden">
+              <div className="prose prose-lg max-w-none">
+                <ReactMarkdown 
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    img: ({node, ...props}) => (
+                      <span className="flex justify-center my-6 w-full">
+                        <img 
+                          {...props} 
+                          className="max-w-full h-auto object-contain rounded-md" 
+                        />
+                      </span>
+                    ),
+                  }}
+                >
+                  {project.InfoCard}
+                </ReactMarkdown>
               </div>
             </div>
           </div>
