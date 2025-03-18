@@ -94,6 +94,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
+        {project.projects && project.projects.length > 0 && (
+          <div className="my-16">
+            <h2 className="text-3xl font-bold mb-8 text-gray-900">Related Projects</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {project.projects.map((project) => (
+                <div key={project.id} className="w-full">
+                  <ProjectCard
+                    name={project.name}
+                    title={project.name}
+                    description={project.tagline}
+                    imageUrl={project.banner?.url
+                      ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`
+                      : '/walle.jpg'}
+                    layout="stacked"
+                    researchLine={false}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+
         {project.publications?.length > 0 && (
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-gray-900">Publications</h2>
@@ -127,29 +150,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
         )}
-
-        {project.projects && project.projects.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900">Related Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {project.projects.map((project) => (
-                <div key={project.id} className="w-full">
-                  <ProjectCard
-                    name={project.name}
-                    title={project.name}
-                    description={project.tagline}
-                    imageUrl={project.banner?.url
-                      ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${project.banner.url}`
-                      : '/walle.jpg'}
-                    layout="stacked"
-                    researchLine={false}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         <Gallery
           images={project.gallery?.map(image => ({
             id: image.id,
