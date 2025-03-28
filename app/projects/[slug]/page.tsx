@@ -115,9 +115,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   components={{
                     img: ({node, ...props}) => (
                       <span className="flex justify-center my-6 w-full">
-                        <img 
-                          {...props} 
-                          className="max-w-full h-auto object-contain rounded-md" 
+                        <Image 
+                          src={props.src || ''}
+                          alt={props.alt || ''}
+                          width={800}
+                          height={600}
+                          className="max-w-full h-auto object-contain rounded-md"
                         />
                       </span>
                     ),

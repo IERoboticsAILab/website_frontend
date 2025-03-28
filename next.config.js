@@ -2,7 +2,7 @@
 
 const nextConfig = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'cyphy.life'],
     remotePatterns: [
       {
         protocol: 'http',
