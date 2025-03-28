@@ -1,3 +1,4 @@
+'use server'
 import { notFound } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
