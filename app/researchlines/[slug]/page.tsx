@@ -1,9 +1,9 @@
+'use server'
 import { notFound } from 'next/navigation';
-import axios from 'axios';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import Image from 'next/image';
-import { Projects } from '@/types/project';
+import { Project } from '@/types/project';
 import Gallery from '@/app/components/Gallery';
 import ProjectCard from '@/components/projectcard';
 
@@ -12,30 +12,27 @@ interface ProjectPageProps {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/research-lines?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members&populate[projects][populate]=*`;
-  const headers = {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
-  };
+  let project: Project | null = null;
 
-  let projects: Projects;
   try {
-    const res = await axios.get(url, { headers });
-    projects = res.data;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8081';
+    const response = await fetch(`${baseUrl}/api/researchlines/${params.slug}`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch research line data');
+    }
+
+    project = await response.json();
   } catch (error) {
-    console.error("Error fetching projects data:", error);
+    console.error("Error fetching research line data:", error);
     notFound();
   }
 
-  const project = projects?.data.find(p => {
-    const projectSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    return projectSlug === params.slug;
-  });
-
   if (!project) {
-    console.log("Project not found for slug:", params.slug);
     notFound();
-  } else {
-    console.log(project);
   }
 
   return (
@@ -77,7 +74,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             </div>
             <div className="w-full lg:w-1/2">
-
               <div className="prose prose-lg max-w-none">
                 <h1 className="text-[2.25em] font-semibold text-gray-800 mb-4">Abstract</h1>
                 {project.about?.map((textItem, i) => (
@@ -116,7 +112,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         )}
 
-
         {project.publications?.length > 0 && (
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-gray-900">Publications</h2>
@@ -150,6 +145,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
         )}
+
         <Gallery
           images={project.gallery?.map(image => ({
             id: image.id,
