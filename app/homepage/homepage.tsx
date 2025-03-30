@@ -5,7 +5,6 @@ import CustomSection from "./customsection";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Landing } from "@/types/landing";
-import axios from "axios";
 import { Project } from '@/types/project';
 
 export const dynamic = 'force-dynamic';
@@ -13,76 +12,30 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   let landing: Landing | null = null;
   let projects: Project[] = [];
-  let researchLines: Project[] = [];
-
-  const landingUrl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/landing?populate[customarea][populate]=*&populate[banner][populate]=*`;
-  const projectsUrl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/projects?populate=*`;
-  const researchLinesUrl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/research-lines?populate=*`;
-  const imgurl = `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}`;
-  const headers = {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
-  };
+  let bannerUrls: string[] = [];
+  let customarea: Landing['data']['customarea'] = [];
 
   try {
-    const [landingRes, projectsRes, researchLinesRes] = await Promise.all([
-      fetch(landingUrl, {
-        headers,
-        cache: 'no-store',
-        next: { revalidate: 0 }
-      }),
-      axios.get<{ data: Project[] }>(projectsUrl, { headers }),
-      axios.get<{ data: Project[] }>(researchLinesUrl, { headers })
-    ]);
+    // Get the base URL from environment or use a default
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8081';
+    const response = await fetch(`${baseUrl}/api/home`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
 
-    landing = await landingRes.json();
-
-    projects = projectsRes.data.data.map(project => ({
-      ...project,
-      gallery: project.gallery?.map(image => ({
-        ...image,
-        formats: {
-          ...image.formats,
-          thumbnail: {
-            ...image.formats.thumbnail,
-            url: `${imgurl}${image.formats.thumbnail.url}`
-          }
-        }
-      }))
-    }));
-
-    researchLines = researchLinesRes.data.data.map(researchLine => ({
-      ...researchLine,
-      researchLine: true,
-      gallery: researchLine.gallery?.map(image => ({
-        ...image,
-        formats: {
-          ...image.formats,
-          thumbnail: {
-            ...image.formats.thumbnail,
-            url: `${imgurl}${image.formats.thumbnail.url}`
-          }
-        }
-      }))
-    }));
-
-    // Filter out projects that have the same name as research lines
-    projects = projects.filter(project =>
-      !researchLines.some(researchLine =>
-        researchLine.name.toLowerCase() === project.name.toLowerCase()
-      )
-    );
-
-    projects = projects.filter((project: Project) => !project.hidden);
+    const data = await response.json();
+    landing = data.landing;
+    projects = data.projects;
+    bannerUrls = data.bannerUrls;
+    customarea = data.customarea;
 
   } catch (error) {
     console.error("Error fetching data:", error);
   }
-
-  const bannerUrls = landing?.data.banner.map(banner => `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${banner.url}`) || [];
-  const customarea = landing?.data.customarea;
-
-  // Combine projects and research lines
-  const combinedItems = [...projects, ...researchLines];
 
   return (
     <div className="">
@@ -93,8 +46,8 @@ export default async function Home() {
         videocaption={landing?.data?.videocaption || ""}
         intro2={landing?.data?.Intro2 || ""}
       />
-      <ProjectsSection projects={combinedItems} />
-      <CustomSection customarea={customarea || []} />
+      <ProjectsSection projects={projects} />
+      <CustomSection customarea={customarea} />
       <Footer />
     </div>
   );
