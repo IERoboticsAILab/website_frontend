@@ -70,6 +70,20 @@ export async function GET() {
     // Filter out hidden projects
     projects = projects.filter((project: Project) => !project.hidden);
 
+    // Sort projects by date (newest first)
+    projects.sort((a: Project, b: Project) => {
+      if (!a.date) return 1;  // If a has no date, put it at the end
+      if (!b.date) return -1; // If b has no date, put it at the end
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+
+    // Sort research lines by date (newest first)
+    researchLines.sort((a: Project, b: Project) => {
+      if (!a.date) return 1;  // If a has no date, put it at the end
+      if (!b.date) return -1; // If b has no date, put it at the end
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+
     const bannerUrls = landing?.data.banner.map((banner: { url: string }) => `${process.env.NEXT_PUBLIC_STRAPI_API_URL_IMG}${banner.url}`) || [];
     const customarea = landing?.data.customarea;
 
