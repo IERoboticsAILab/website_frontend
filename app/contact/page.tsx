@@ -1,7 +1,6 @@
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { JobPosts } from "@/types/jobpost";
-import axios from "axios";
+import { JobPost } from "@/types/jobpost";
 import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 import CalendarSection from "./components/CalendarSection";
@@ -10,23 +9,26 @@ import Image from "next/image";
 export const dynamic = 'force-dynamic';
 
 export default async function Contact() {
+  let jobposts: JobPost[] = [];
 
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/jobposts?populate=*`;
-  const headers = {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
-  };
-
-  let jobposts: JobPosts;
   try {
-    const res = await axios.get(url, { headers });
-    jobposts = res.data;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8081';
+    const response = await fetch(`${baseUrl}/api/jobposts`, {
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch job posts data');
+    }
+
+    jobposts = await response.json();
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching job posts data:", error);
     notFound();
   }
 
   return (
-
     <div>
       <Navbar />
       <main className="container mx-auto px-4 py-8">
@@ -34,10 +36,10 @@ export default async function Contact() {
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/2 bg-white p-6 rounded-lg shadow-md">
-          <div className="flex flex-col justify-center items-center mb-4">
-            <Image src="/school.png" alt="IE Tower" width={300} height={300} />
-            <Image src="/Impact.png" alt="IE Tower" width={300} height={300} />
-          </div>
+            <div className="flex flex-col justify-center items-center mb-4">
+              <Image src="/school.png" alt="IE Tower" width={300} height={300} />
+              <Image src="/Impact.png" alt="IE Tower" width={300} height={300} />
+            </div>
             <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">Physical Location</h2>
             <div className="space-y-2 mb-8">
               <div className="flex items-center text-gray-600">
@@ -69,7 +71,7 @@ export default async function Contact() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {jobposts.data.map((job) => (
+            {jobposts.map((job) => (
               <div key={job.id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <h3 className="text-2xl font-semibold mb-3 text-gray-800">{job.position}</h3>
                 <div className="space-y-4">
