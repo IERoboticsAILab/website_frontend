@@ -35,7 +35,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     console.log("Project not found for slug:", params.slug);
     notFound();
   } else {
-    console.log(project);
+    console.log("Project Found");
   }
 
   return (

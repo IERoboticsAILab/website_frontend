@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ProjectsGrid from './projectsgrid';
 import { Project } from "@/types/project";
+import axios from "axios";
 
 export const dynamic = 'force-dynamic';
 
@@ -12,23 +13,18 @@ async function getProjects() {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };
 
-  const res = await fetch(url, { headers });
-  if (!res.ok) {
-    throw new Error('Failed to fetch projects');
-  }
-
-  const data = await res.json();
-  return data.data.map((project: Project) => ({
+  const res = await axios.get<{ data: Project[] }>(url, { headers });
+  return res.data.data.map((project: Project) => ({
     ...project,
     gallery: project.gallery?.map((image) => ({
       ...image,
-      formats: image.formats ? {
+      formats: {
         ...image.formats,
-        thumbnail: image.formats.thumbnail ? {
+        thumbnail: {
           ...image.formats.thumbnail,
           url: `${imgurl}${image.formats.thumbnail.url}`
-        } : undefined
-      } : undefined
+        }
+      }
     }))
   }));
 }
@@ -40,38 +36,41 @@ async function getResearchLines() {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_KEY}`,
   };
 
-  const res = await fetch(url, { headers });
-  if (!res.ok) {
-    throw new Error('Failed to fetch research lines');
-  }
-
-  const data = await res.json();
-  return data.data.map((researchLine: Project) => ({
+  const res = await axios.get<{ data: Project[] }>(url, { headers });
+  return res.data.data.map((researchLine: Project) => ({
     ...researchLine,
     researchLine: true,
     gallery: researchLine.gallery?.map((image) => ({
       ...image,
-      formats: image.formats ? {
+      formats: {
         ...image.formats,
-        thumbnail: image.formats.thumbnail ? {
+        thumbnail: {
           ...image.formats.thumbnail,
           url: `${imgurl}${image.formats.thumbnail.url}`
-        } : undefined
-      } : undefined
+        }
+      }
     }))
   }));
 }
 
-
 export default async function ProjectsPage() {
   const projects = await getProjects();
   const researchLines = await getResearchLines();
-  console.log("research lines:")
-  console.log(researchLines)
 
-const visibleProjects = projects.filter((project: Project) => !project.hidden);
+  // Filter out hidden projects
+  const visibleProjects = projects.filter((project: Project) => !project.hidden);
 
-  const combinedItems = [...visibleProjects, ...researchLines];
+  // Filter out projects that have the same name as research lines
+  const filteredProjects = visibleProjects.filter(project =>
+    !researchLines.some(researchLine =>
+      researchLine.name.toLowerCase() === project.name.toLowerCase()
+    )
+  );
+
+  // Combine and sort by date
+  const combinedItems = [...filteredProjects, ...researchLines].sort((a, b) => {
+    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+  });
 
   return (
     <div>
