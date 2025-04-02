@@ -5,16 +5,9 @@ meta {
 }
 
 get {
-  url: {{strapi_url}}/api/projects?populate[members][populate][0]=profilepic&populate[banner][populate]=*&populate[gallery][populate]=*&populate[publications][populate][0]=members
+  url: {{strapi_url}}/api/research-lines?
   body: none
   auth: none
-}
-
-params:query {
-  populate[members][populate][0]: profilepic
-  populate[banner][populate]: *
-  populate[gallery][populate]: *
-  populate[publications][populate][0]: members
 }
 
 headers {

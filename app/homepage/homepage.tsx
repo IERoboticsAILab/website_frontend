@@ -82,7 +82,9 @@ export default async function Home() {
   const customarea = landing?.data.customarea;
 
   // Combine projects and research lines
-  const combinedItems = [...projects, ...researchLines];
+  const combinedItems = [...projects, ...researchLines].sort((a, b) => {
+    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+  });
 
   return (
     <div className="">
