@@ -69,14 +69,7 @@ export default async function ProjectsPage() {
   console.log("research lines:")
   console.log(researchLines)
 
-  // Filter out projects that have the same name as research lines
-  const filteredProjects = projects.filter((project: Project) =>
-    !researchLines.some((researchLine: Project) =>
-      researchLine.name.toLowerCase() === project.name.toLowerCase()
-    )
-  );
-
-const visibleProjects = filteredProjects.filter((project: Project) => !project.hidden);
+const visibleProjects = projects.filter((project: Project) => !project.hidden);
 
   const combinedItems = [...visibleProjects, ...researchLines];
 
