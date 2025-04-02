@@ -27,8 +27,6 @@ export default async function Home() {
     const [landingRes, projectsRes, researchLinesRes] = await Promise.all([
       fetch(landingUrl, {
         headers,
-        cache: 'no-store',
-        next: { revalidate: 0 }
       }),
       axios.get<{ data: Project[] }>(projectsUrl, { headers }),
       axios.get<{ data: Project[] }>(researchLinesUrl, { headers })
